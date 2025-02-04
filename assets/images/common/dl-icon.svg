@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="17.333" viewBox="0 0 16 17.333">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="16" height="17.333" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="リピートグリッド_124" data-name="リピートグリッド 124" clip-path="url(#clip-path)">
+    <g transform="translate(-360 -393.667)">
+      <g id="download_FILL0_wght400_GRAD0_opsz20" transform="translate(360 393.667)">
+        <path id="download_FILL0_wght400_GRAD0_opsz20-2" data-name="download_FILL0_wght400_GRAD0_opsz20" d="M193.992,257.333a1.913,1.913,0,0,1-1.409-.587,1.933,1.933,0,0,1-.583-1.412v-2h2v2h12v-2h2v2a2.006,2.006,0,0,1-2,2Zm6.008-4L194.667,248l1.417-1.417L199,249.5V240h2v9.5l2.917-2.917L205.333,248Z" transform="translate(-192 -240)" fill="#1e4290"/>
+      </g>
+    </g>
+  </g>
+</svg>

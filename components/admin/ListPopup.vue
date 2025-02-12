@@ -51,7 +51,7 @@ const preventDefaults = (e) => {
                             hold = false;
                         }
                     "
-                    class="mb-2 cursor-default bg-dark py-1 text-[20px]"
+                    class="mb-2 cursor-pointer bg-dark py-1 text-[20px]"
                 >
                     {{title}}
                 </div>
@@ -81,14 +81,15 @@ const preventDefaults = (e) => {
 <style lang="scss" scoped>
 .list-user {
     z-index: 5;
-    position: absolute;
-    top: -50%;
+    position: fixed;
+    top: 50%;
     left: 50%;
-    transform: translateX(-80%);
+    transform: translate(-50%, -50%);
     height: initial;
     background-color: #ddd;
     margin: 5px;
     border: 1px solid #000;
     padding: 15px 10px;
+    min-width: 600px;
 }
 </style>

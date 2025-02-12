@@ -57,7 +57,8 @@ export default {
                 pink: '#fe2a2a1a',
                 blue: {
                     100: '#5b9bd5'
-                }
+                },
+                text: '#596171'
             },
             borderRadius: {
                 none: '0',

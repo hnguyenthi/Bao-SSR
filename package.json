@@ -10,10 +10,15 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@tinymce/tinymce-vue": "^5.1.1",
     "@venegrad/vue3-click-outside": "^1.0.2",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "@vuepic/vue-datepicker": "^11.0.1",
+    "@vueuse/components": "^12.5.0",
     "chart.js": "^4.4.7",
     "dayjs": "^1.11.13",
     "gsap": "^3.12.7",
@@ -22,11 +27,14 @@
     "vue": "^3.5.0",
     "vue-chartjs": "^5.3.2",
     "vue-material-design-icons": "^5.3.1",
+    "vue-multiselect": "^3.2.0",
     "vue-router": "latest",
     "vue3-carousel": "^0.13.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.13.1",
+    "@vueuse/core": "^12.5.0",
+    "@vueuse/nuxt": "^12.5.0",
     "sass": "^1.83.4"
   }
 }

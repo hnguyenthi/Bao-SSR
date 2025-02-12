@@ -1,9 +1,10 @@
-<script setup lang="ts">
-
+<script setup>
+import { computed } from 'vue';
 const route = useRoute();
-console.log('route.fullPath', route.fullPath);
-const layout = route.fullPath === '/' ? 'login-user-layout' : route.fullPath === '/mng/login' ? 'login-admin-layout': route.fullPath.includes('/mng/') ? 'admin':'user';
 
+const layout = computed(() => {
+  return route.fullPath === '/' || route.fullPath === '/resetPw' ? 'login-user-layout' : route.fullPath === '/mng/login' ? 'login-admin-layout': route.fullPath.includes('/mng/') ? 'admin':'user';
+})
 </script>
 
 <template>

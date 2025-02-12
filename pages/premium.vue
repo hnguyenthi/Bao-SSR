@@ -264,7 +264,7 @@ const goToCategory = (category) => {
             <div class=""><p class="" v-html="description"></p></div>
             <div
                 class="list-categories mb-[44px] mt-[24px]"
-                :class="`grid grid-cols-6 ${categories?.length} gap-6`"
+                :class="`grid grid-cols-6 ${categories?.length} gap-4`"
             >
                 <div
                     @click="goToCategory(category)"
@@ -272,7 +272,7 @@ const goToCategory = (category) => {
                     :key="category.id"
                     class="col-span-6 flex h-[42px] cursor-pointer items-center justify-between rounded-full bg-white px-3 text-primary hover:opacity-70 lg:col-span-1"
                 >
-                    <div class="">{{ category.name }}</div>
+                    <div class="text-primary">{{ category.name }}</div>
                     <img
                         src="~/assets/images/common/d-arr.svg"
                         alt=""

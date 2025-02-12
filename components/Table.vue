@@ -291,9 +291,6 @@ watch(
     width: var(--width);
     @media only screen and (max-width: 640px) {
         min-width: 100px;
-        // @if var(--width) == undefined {
-        //     width: 100px;
-        // }
     }
     &:not(:last-child) {
         border-right: 1px solid theme('colors.white');
@@ -324,9 +321,6 @@ watch(
     .columns {
         text-align: center;
         color: theme('colors.dark');
-        &:not(:has(.columns__multi-value)) {
-            // padding: 10px 13px 10px 13px;
-        }
         &:not(:last-child) {
             border-right: 1px solid theme('colors.grey');
         }

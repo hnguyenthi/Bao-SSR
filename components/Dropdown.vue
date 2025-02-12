@@ -94,7 +94,9 @@ const open = ref(false);
                     {{
                         options.find(
                             (item) => item[fieldValue] == modelValue,
-                        )?.[fieldLabel]
+                        )?.[fieldLabel] || options.find(
+                            (item) => item[fieldValue] == modelValue,
+                        )?.[fieldValue]
                     }}
                 </div>
             </div>
@@ -120,13 +122,13 @@ const open = ref(false);
                                 "
                                 v-for="(item, index) in options"
                                 :key="item[fieldValue] + index"
-                                class="cursor-pointer px-3 py-1 text-center text-[14px] text-dark hover:bg-primary hover:text-white"
+                                class="cursor-pointer px-3 py-1 text-center text-[14px] hover:bg-primary hover:text-white"
                                 :class="{
                                     '!text-left text-h5 font-medium':
                                         mode === 'form',
                                 }"
                             >
-                                {{ item[fieldLabel] }}
+                                {{ item[fieldLabel] ||item[fieldValue] }}
                             </div>
                         </div>
                     </div>

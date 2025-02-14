@@ -7,7 +7,7 @@ const handleTop = () => {
   router.push("/mng/dashboard");
 };
 const handleLogout = () => {
-  router.post("/admin/logout");
+  router.push("/mng/login");
 };
 const menu = [
    {

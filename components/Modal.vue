@@ -89,7 +89,7 @@ const close = () => {
                     >
                         <div class="p-[30px]">
                             <div class="modal-header mb-[17px]">
-                                <p class="text-h5 font-medium text-center">{{title}}</p>
+                                <p class="text-h5 font-medium text-center" v-if="title">{{title}}</p>
                                 <div
                                 @click="close"
                                     class="cursor-pointer close-icon js-modal-close common-modal-close"

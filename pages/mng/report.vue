@@ -1,4 +1,6 @@
 <script setup>
+import { vOnClickOutside } from "@vueuse/components";
+
 import {
   STATUS_REFLECTION,
   REFLECTION_STATUS,
@@ -13,121 +15,19 @@ import {
   formatDateYYYYMMDD,
   formatDateCustom,
 } from "~/utils";
+import Swal from "sweetalert2";
 
 const form = reactive({
   resignDate: "",
-  flectionStatus: null,
-  approveStatus: 1,
+  flectionStatus: [],
+  approveStatus: [],
   deadlineDate: "",
   resultDate: "",
   creator: "",
   userName: "",
 });
 const reports = ref(report);
-// const options = [
-//   {
-//     value: "2019/04/09",
-//     total: 1,
-//   },
-//   {
-//     value: "2019/06/19",
-//     total: 2,
-//   },
-//   {
-//     value: "2019/04/29",
-//     total: 3,
-//   },
-//   {
-//     value: "2018/04/09",
-//     total: 1,
-//   },
-//   {
-//     value: "2018/06/19",
-//     total: 2,
-//   },
-//   {
-//     value: "2018/04/29",
-//     total: 3,
-//   },
-//   {
-//     value: "2017/04/09",
-//     total: 1,
-//   },
-//   {
-//     value: "2017/06/19",
-//     total: 2,
-//   },
-//   {
-//     value: "2017/04/29",
-//     total: 3,
-//   },
-//   {
-//     value: "2020/04/09",
-//     total: 1,
-//   },
-//   {
-//     value: "2020/06/19",
-//     total: 2,
-//   },
-//   {
-//     value: "2020/04/29",
-//     total: 3,
-//   },
-// ];
-// const optionApprove = [
-//   {
-//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.UN_APPROVED],
-//     status: STATUS_APPROVE.UN_APPROVED,
-//     total: 34,
-//   },
-//   {
-//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.DOC_AWAIT_APPROVE],
-//     status: STATUS_APPROVE.DOC_AWAIT_APPROVE,
-//     total: 34,
-//   },
-//   {
-//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.DOC_APPROVED],
-//     status: STATUS_APPROVE.DOC_APPROVED,
-//     total: 2,
-//   },
-//   {
-//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.ES_AWAIT_APPROVE],
-//     status: STATUS_APPROVE.ES_AWAIT_APPROVE,
-//     total: 9,
-//   },
-//   {
-//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.ES_APPROVED],
-//     status: STATUS_APPROVE.ES_APPROVED,
-//     total: 41,
-//   },
-// ];
-// const flectionStatus = [
-//   {
-//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.NOT_REFLECTED],
-//     status: STATUS_REFLECTION.NOT_REFLECTED,
-//     total: 34,
-//   },
-//   {
-//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.REFLECTING],
-//     status: STATUS_REFLECTION.REFLECTING,
-//     total: 34,
-//   },
-//   {
-//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.REFLECTED],
-//     status: STATUS_REFLECTION.REFLECTED,
-//     total: 2,
-//   },
-//   {
-//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.ERROR],
-//     status: STATUS_REFLECTION.ERROR,
-//     total: 9,
-//   },
-//   {
-//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.NOT_SUBJECT],
-//     status: STATUS_REFLECTION.NOT_SUBJECT,
-//     total: 41,
-//   },
-// ];
+const changeStatus = ref(false);
 const paging = ref({
   itemPerPage: 25,
   totalPage: Math.ceil(report.length / 25),
@@ -205,6 +105,41 @@ const dataTable = {
   data: report,
 };
 const selected = ref([]);
+const delFilterApproveStatus = (status) => {
+  form.value.approveStatus = form.value.approveStatus.filter(
+    (item) => item !== status
+  );
+};
+const delFilterFlectionStatus = (status) => {
+  form.value.flectionStatus = form.value.flectionStatus.filter(
+    (item) => item !== status
+  );
+};
+const deleteFile = () => {
+  if (selected.value.length === 0) return;
+  let options = {
+    title: `${selected.value.length}件のファイルを削除しますか？`,
+    // text: "外部のサイトに移動しますがよろしいですか？",
+    icon: "info",
+    iconColor: "#c9dae1",
+    showCancelButton: true,
+    confirmButtonColor: "#7cd1f9",
+    cancelButtonColor: "#efefef",
+    confirmButtonText: "はい",
+    cancelButtonText: "いいえ",
+    reverseButtons: true,
+  };
+  Swal.fire(options).then((result) => {
+    if (result.isConfirmed) {
+      //  delete
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      // cancel
+    }
+  });
+};
+const handleChangeStatus = (status) => {
+  console.log("handleChangeStatus", status);
+};
 const handleFilter = () => {
   console.log("handleFilter");
 };
@@ -219,145 +154,178 @@ const handleFilter = () => {
     <div class="admin-box">
       <div class="admin-user__statement-list">
         <!-- table -->
-        <div class="flex gap-x-3 pb-2">
-          <SearchItem
-            title="登録日"
-            :value="form.resignDate"
-            :callback="handleFilter"
-          >
-            <template #content>
-              <RangeDate
-                v-model="form.resignDate"
-                classes="border-[1px] border-solid border-[#ccc] rounded-sm"
-              />
-            </template>
-          </SearchItem>
-          <SearchItem
-            title="ES作成期限"
-            :value="form.deadlineDate"
-            :callback="handleFilter"
-          >
-            <template #content>
-              <RangeDate
-                v-model="form.deadlineDate"
-                classes=" border-[1px] border-solid border-[#ccc] rounded-sm"
-              />
-            </template>
-          </SearchItem>
-          <SearchItem
-            title="データ反映期限"
-            :value="form.resultDate"
-            :callback="handleFilter"
-          >
-            <template #content>
-              <RangeDate
-                v-model="form.resultDate"
-                classes="border-[1px] border-solid border-[#ccc] rounded-sm"
-              />
-            </template>
-          </SearchItem>
-          <SearchItem
-            title="ES作成担当者"
-            :value="form.creator"
-            :callback="handleFilter"
-          >
-            <template #content>
-              <input
-                v-model="form.creator"
-                class="form-control bg-white rounded-sm !border-end-1 mr-[2px] text-[14px] !h-[30px]"
-              />
-            </template>
-          </SearchItem>
-          <SearchItem
-            title="ユーザー名"
-            :value="form.userName"
-            :callback="handleFilter"
-          >
-            <template #content>
-              <input
-                v-model="form.userName"
-                class="form-control bg-white rounded-sm !border-end-1 mr-[2px] text-[14px] !h-[30px]"
-              />
-            </template>
-          </SearchItem>
-          <SearchItem
-            title="反映状況"
-            :value="form.flectionStatus"
-            :callback="handleFilter"
-          >
-            <template #value>
-              <span
-                class="text-[14px] rounded-[5px] px-[5px]"
-                :class="flectionClass(form.flectionStatus)"
-              >
-                {{
-                  REFLECTION_STATUS.find(
-                    (item) => item.value == form.flectionStatus
-                  )?.label
-                }}
-                <font-awesome-icon
-                  class="scale-[0.8] pl-1"
-                  @click.stop="
-                    () => {
-                      form.flectionStatus = null;
-                      handleFilter();
-                    }
-                  "
-                  icon="circle-xmark"
+        <div class="flex items-center justify-between">
+          <div class="flex gap-x-3 pb-2">
+            <SearchItem
+              title="登録日"
+              :value="form.resignDate"
+              :callback="handleFilter"
+            >
+              <template #content>
+                <RangeDate
+                  v-model="form.resignDate"
+                  classes="border-[1px] border-solid border-[#ccc] rounded-sm"
                 />
-              </span>
-            </template>
-            <template #content>
-              <AdminDropdown
-                :options="REFLECTION_STATUS"
-                fieldValue="value"
-                fieldLabel="label"
-                v-model="form.flectionStatus"
-              />
-            </template>
-          </SearchItem>
-          <SearchItem
-            title="承認状況"
-            :value="form.approveStatus"
-            :callback="handleFilter"
-          >
-            <template #value>
-              <span
-                class="text-[14px] rounded-[5px] px-[5px]"
-                :class="approveClass(form.approveStatus)"
-              >
-                {{
-                  APPROVE_STATUS.find(
-                    (item) => item.value == form.approveStatus
-                  )?.label
-                }}
-                <font-awesome-icon
-                  class="scale-[0.8] pl-1"
-                  @click.stop="
-                    () => {
-                      form.approveStatus = null;
-                      handleFilter();
-                    }
-                  "
-                  icon="circle-xmark"
+              </template>
+            </SearchItem>
+            <SearchItem
+              title="ES作成期限"
+              :value="form.deadlineDate"
+              :callback="handleFilter"
+            >
+              <template #content>
+                <RangeDate
+                  v-model="form.deadlineDate"
+                  classes=" border-[1px] border-solid border-[#ccc] rounded-sm"
                 />
-              </span>
-            </template>
-            <template #content>
-              <AdminDropdown
-                :options="APPROVE_STATUS"
-                fieldValue="value"
-                fieldLabel="label"
-                v-model="form.approveStatus"
-              />
-            </template>
-          </SearchItem>
+              </template>
+            </SearchItem>
+            <SearchItem
+              title="データ反映期限"
+              :value="form.resultDate"
+              :callback="handleFilter"
+            >
+              <template #content>
+                <RangeDate
+                  v-model="form.resultDate"
+                  classes="border-[1px] border-solid border-[#ccc] rounded-sm"
+                />
+              </template>
+            </SearchItem>
+            <SearchItem
+              title="ES作成担当者"
+              :value="form.creator"
+              :callback="handleFilter"
+            >
+              <template #content>
+                <input
+                  v-model="form.creator"
+                  class="form-control bg-white rounded-sm !border-end-1 mr-[2px] text-[14px] !h-[30px]"
+                />
+              </template>
+            </SearchItem>
+            <SearchItem
+              title="ユーザー名"
+              :value="form.userName"
+              :callback="handleFilter"
+            >
+              <template #content>
+                <input
+                  v-model="form.userName"
+                  class="form-control bg-white rounded-sm !border-end-1 mr-[2px] text-[14px] !h-[30px]"
+                />
+              </template>
+            </SearchItem>
+            <SearchItem
+              title="反映状況"
+              :value="form.flectionStatus"
+              :callback="handleFilter"
+            >
+              <template #value>
+                <span
+                  v-for="item in form.flectionStatus.slice(0, 3)"
+                  :key="item"
+                  class="text-[14px] rounded-[5px] px-[5px] mx-[1px]"
+                  :class="flectionClass(item)"
+                >
+                  {{ REFLECTION_STATUS.find((i) => i.value == item)?.label }}
+                  <font-awesome-icon
+                    class="scale-[0.8] pl-1"
+                    @click.stop="delFilterFlectionStatus(item)"
+                    icon="circle-xmark"
+                  />
+                </span>
+                <span
+                  class="text-[14px] font-semibold text-primary"
+                  v-if="form.flectionStatus.length > 3"
+                  >他{{ form.flectionStatus.length - 3 }}件</span
+                >
+              </template>
+              <template #content>
+                <div class="max-h-[220px] overflow-y-auto">
+                  <AdminGroupCheckbox
+                    :options="REFLECTION_STATUS"
+                    fieldValue="value"
+                    fieldLabel="label"
+                    v-model="form.flectionStatus"
+                  />
+                </div>
+              </template>
+            </SearchItem>
+            <SearchItem
+              title="承認状況"
+              :value="form.approveStatus"
+              :callback="handleFilter"
+            >
+              <template #value>
+                <span
+                  v-for="item in form.approveStatus.slice(0, 3)"
+                  :key="item"
+                  class="text-[14px] rounded-[5px] px-[5px] mx-[1px]"
+                  :class="approveClass(item)"
+                >
+                  {{ APPROVE_STATUS.find((i) => i.value == item)?.label }}
+                  <font-awesome-icon
+                    class="scale-[0.8] pl-1"
+                    @click.stop="delFilterApproveStatus(item)"
+                    icon="circle-xmark"
+                  />
+                </span>
+                <span
+                  class="text-[14px] font-semibold text-primary"
+                  v-if="form.approveStatus.length > 3"
+                  >他{{ form.approveStatus.length - 3 }}件</span
+                >
+              </template>
+              <template #content>
+                <div class="max-h-[220px] overflow-y-auto">
+                  <AdminGroupCheckbox
+                    :options="APPROVE_STATUS"
+                    fieldValue="value"
+                    fieldLabel="label"
+                    v-model="form.approveStatus"
+                  />
+                </div>
+              </template>
+            </SearchItem>
+          </div>
+          <div>
+            <div class="flex gap-x-3">
+              <button class="btn btn-outline-primary btn-sm shadow-md">
+                DL
+              </button>
+              <button
+                class="btn btn-outline-primary btn-sm shadow-md"
+                @click="deleteFile"
+              >
+                削除
+                <font-awesome-icon icon="trash" />
+              </button>
+              <div class="relative" v-on-click-outside="() => (changeStatus = false)">
+                <button class="btn btn-outline-primary btn-sm shadow-md" @click="changeStatus = !changeStatus">
+                  ステータス変更
+                  <font-awesome-icon icon="chevron-down" />
+                </button>
+                <div class="absolute top-[30px] right-0 bg-white shadow-md z-[100] w-[133px]" v-if="changeStatus" >
+                  <div
+                    :class="flectionClass(item.value)"
+                    v-for="(item, index) in REFLECTION_STATUS"
+                    :key="index + item.value"
+                    @click="handleChangeStatus(item.value)"
+                    class="text-center cursor-pointer"
+                  >
+                    {{ item.label }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div>
           <AdminTable
             checkbox
             :headers="dataTable.headers"
-            :data="dataTable.data"
+            :data="dataTable.data.slice(1, 100)"
             v-model:selected="selected"
           >
             <template #upldate="{ data }">
@@ -368,10 +336,11 @@ const handleFilter = () => {
               </div>
             </template>
             <template #bldgname="{ data }">
-              <div class="h-full">
-                <p class="text-center">
+              <div class="relative group items-center">
+                <p class="text-center text-one-line cursor-pointer">
                   {{ data.bldgname || "未設定" }}
                 </p>
+                <Tooltip v-if="data.bldgname" :content="data.bldgname" />
               </div>
             </template>
             <template #upldate_day="{ data }">
@@ -384,15 +353,14 @@ const handleFilter = () => {
             <template #filename="{ data }">
               <div class="h-full">
                 <div class="relative group items-center">
-                  <p class="text-center text-one-line ">
+                  <p class="text-center text-one-line cursor-pointer">
                     {{ data.filename.slice(0, data.filename.lastIndexOf(".")) }}
-                     <Tooltip
-                    :content="
-                      data.filename.slice(0, data.filename.lastIndexOf(`.`))
-                    "
-                  />
+                    <Tooltip
+                      :content="
+                        data.filename.slice(0, data.filename.lastIndexOf(`.`))
+                      "
+                    />
                   </p>
-                 
                 </div>
               </div>
             </template>
@@ -405,9 +373,9 @@ const handleFilter = () => {
             </template>
             <template #file_download="{ data }">
               <div
-                class="relative items-center group cursor-pointer text-primary hover:underline"
+                class="relative items-center group text-primary hover:underline"
               >
-                <p class="text-center text-one-line">
+                <p class="text-center text-one-line cursor-pointer">
                   {{
                     data.filename
                       .slice(0, data.filename.lastIndexOf("."))
@@ -419,17 +387,17 @@ const handleFilter = () => {
                         )
                       )
                   }}
-                   <Tooltip
+                  <Tooltip
                     :content="
                       data.filename
-                      .slice(0, data.filename.lastIndexOf(`.`))
-                      .concat(
-                        `報告書`,
-                        data.filename.slice(
-                          data.filename.lastIndexOf(`.`),
-                          data.filename.length
+                        .slice(0, data.filename.lastIndexOf(`.`))
+                        .concat(
+                          `報告書`,
+                          data.filename.slice(
+                            data.filename.lastIndexOf(`.`),
+                            data.filename.length
+                          )
                         )
-                      )
                     "
                   />
                 </p>
@@ -443,9 +411,8 @@ const handleFilter = () => {
               </div>
             </template>
             <template #flection_status="{ data }">
-              <div class="h-full">
+              <div class="w-[80px]">
                 <Status
-                  class="w-[80px]"
                   :options="REFLECTION_STATUS"
                   :classFn="flectionClass"
                   :value="data.status"
@@ -453,9 +420,8 @@ const handleFilter = () => {
               </div>
             </template>
             <template #approve_status="{ data }">
-              <div class="h-full">
+              <div class="w-[100px]">
                 <Status
-                  class="w-[100px]"
                   :options="APPROVE_STATUS"
                   :classFn="approveClass"
                   :value="data.status"

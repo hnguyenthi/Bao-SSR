@@ -9,7 +9,7 @@ const form = reactive({
 });
 
 const handleLogin = () => {
-    router.push('/mng/users');
+    router.push('/mng/dashboard');
 };
 </script>
 <template>

@@ -17,9 +17,9 @@ const tabs = ref([
     <div>
       <!-- chart user -->
       <div>
-        <div class="text-[22px] text-text font-medium pb-2 px-[40px]">
+        <h3 class="text-h2 text-text font-medium pb-2 px-[40px]">
           ユーザー数
-        </div>
+        </h3>
         <UserChart />
       </div>
       <div class="grid grid-cols-2 gap-x-6 mt-5">

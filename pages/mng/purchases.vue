@@ -8,12 +8,16 @@ const data = ref(purchases.data);
 const optionsRegisterTime = ref(purchases.optionsRegisterTime);
 const optionsStatus = ref(purchases.optionsStatus);
 const optionServices = ref(purchases.optionServices);
+console.log("optionServices", optionServices);
 const services = ref(purchases.services);
+const openModal = ref(false);
+const serviceActive = ref(null);
 const form = ref({
   optionsRegisterTime: "",
   optionsStatus: [],
   optionServices: [],
 });
+
 const dataTable = ref({
   headers: [
     {
@@ -97,13 +101,16 @@ const callBackStatus = (item) => {
   form.value.optionsStatus = form.value.optionsStatus.filter((i) => i !== item);
 };
 const handleFilter = (value) => {};
+const handleYes = () => {
+  // window.open("https://www.google.com", "_blank");
+};
 </script>
 
 <template>
   <div>
     <!-- <Breadcrumb :breadcrumbs="breadcrumbs" /> -->
     <h3 class="pb-[15px] text-h2 font-normal text-dark mr-3">
-      オプション購入履歴　一覧"
+      オプション購入履歴　一覧
     </h3>
     <div class="admin-box">
       <div class="admin-user__statement-list">
@@ -212,76 +219,16 @@ const handleFilter = (value) => {};
                   </div>
                 </template>
               </SearchItem>
-              <!-- <SearchItem
-                title="ステータス"
-                :value="
-                  STATUS_PURCHASE[form.optionsStatus.split(`-`)[0]]?.find(
-                    (i) => i.value == form.optionsStatus.split(`-`)[1]
-                  )?.label
-                "
-                :callback="handleFilter"
-              >
-                <template #value>
-                  <span
-                    class="text-[14px] rounded-[5px] px-[5px]"
-                    :class="statusClass(form.optionsStatus.split(`-`))"
-                  >
-                    {{
-                      STATUS_PURCHASE[form.optionsStatus.split(`-`)[0]]?.find(
-                        (i) => i.value == form.optionsStatus.split(`-`)[1]
-                      )?.label
-                    }}
-                    <font-awesome-icon
-                      class="scale-[0.8] pl-1"
-                      @click.stop="
-                        () => {
-                          form.optionsStatus = '';
-                          handleFilter();
-                        }
-                      "
-                      icon="circle-xmark"
-                    />
-                  </span>
-                </template>
-                <template #content>
-                  <AdminDropdown
-                    :options="optionsStatus"
-                    fieldValue="value"
-                    fieldLabel="option_display_name"
-                    v-model="form.optionsStatus"
-                  >
-                    <template #option="{ data }">
-                      <div class="h-full">
-                        <p class="text-center">
-                          {{
-                            STATUS_PURCHASE[data.option_id]?.find(
-                              (i) => i.value == data.status
-                            )?.label
-                          }}
-                        </p>
-                      </div>
-                    </template>
-                    <template #active>
-                      <div class="h-full">
-                        {{
-                          STATUS_PURCHASE[
-                            form.optionsStatus.split(`-`)[0]
-                          ]?.find(
-                            (i) => i.value == form.optionsStatus.split(`-`)[1]
-                          )?.label
-                        }}
-                      </div>
-                    </template>
-                  </AdminDropdown>
-                </template>
-              </SearchItem> -->
             </div>
             <div class="flex gap-x-3">
-              <button class="btn btn-outline-primary btn-sm shadow-md">
-                オプションcsv
+              <button
+                class="btn btn-outline-primary btn-sm shadow-md"
+                @click="openModal = true"
+              >
+                オプションCSV
               </button>
               <button class="btn btn-outline-primary btn-sm shadow-md">
-                csvダウンロード
+                CSVダウンロード
                 <font-awesome-icon class="pl-1" icon="file-arrow-down" />
               </button>
               <button class="btn btn-outline-primary btn-sm shadow-md">
@@ -289,6 +236,26 @@ const handleFilter = (value) => {};
                 <font-awesome-icon class="pl-1" icon="file-arrow-down" />
               </button>
             </div>
+            <Modal v-model="openModal" @yes="handleYes">
+              <template #body>
+                <div class="">
+                  <AdminDropdown
+                    label="オプション種類"
+                    :options="optionServices"
+                    fieldValue="option_id"
+                    fieldLabel="option_display_name"
+                    v-model="serviceActive"
+                  />
+                  <div class="pt-3 flex justify-center">
+                    <button class="btn btn-outline-primary btn-sm shadow-md">
+                      CSVダウンロード
+                      <font-awesome-icon class="pl-1" icon="file-arrow-down" />
+                    </button>
+                  </div>
+                </div>
+              </template>
+              <template #footer> </template>
+            </Modal>
           </div>
           <AdminTable :headers="dataTable.headers" :data="items">
             <template #option_id="{ data }">

@@ -14,12 +14,13 @@ const props = defineProps({
     default: () => {},
   },
 });
+// console.log("props", typeof props.value);
 const show = ref(false);
 </script>
 <template>
   <div
     v-on-click-outside="() => (show = false)"
-    class="shadow-md rounded-full border-[1px] border-dashed border-[#d8dee4] px-2 py-1 inline-flex text-[#596171] cursor-pointer relative"
+    class="shadow-md rounded-full border-[1px] border-dashed border-[#d8dee4] px-2 py-[2px] inline-flex text-[#596171] cursor-pointer relative"
   >
     <div @click="show = !show" class="flex items-center gap-1">
      <div class="flex items-center">
@@ -33,7 +34,7 @@ const show = ref(false);
       </p>
      </div>
       <div v-if="value">
-        |
+       <span v-if="value && value.length > 0"> |</span>
         <span v-if="!$slots[`value`]">
           <span
             class="text-[12px] font-semibold text-primary"

@@ -2,7 +2,6 @@
 import { ref, reactive, onMounted } from 'vue';
 import question from '~/assets/mockData/questions.json';
 import services from '~/assets/mockData/services.json';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useVuelidate } from '@vuelidate/core';
 const route = useRoute();
 console.log(route);

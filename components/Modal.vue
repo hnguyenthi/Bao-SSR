@@ -1,6 +1,5 @@
 <script setup>
 import { computed, onMounted, onUnmounted, watch } from 'vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 const props = defineProps({
     modelValue: {
         type: Boolean,

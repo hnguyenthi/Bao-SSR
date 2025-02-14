@@ -1,7 +1,5 @@
 <script setup>
 import {
-  STATUS_USER,
-  STATUS_USER_TITLE,
   USER_STATUS,
 } from "~/utils/constraints.js";
 import { ref, watch } from "vue";
@@ -104,147 +102,8 @@ const handleFilter = () => {
     <h3 class="pb-[15px] text-h2 font-normal text-dark mr-3">ユーザー管理</h3>
     <div class="admin-box">
       <div class="admin-user__statement-list">
-        <!-- <div class="row gap-x-8">
-          <div class="form-group">
-            <label for="" class="pb-1">開始日:</label>
-            <div
-              class="input-group date"
-              id="reservationdate"
-              data-target-input="nearest"
-            >
-              <AdminDatePicker
-                :isIcon="false"
-                class="rounded-sm border-[1px] border-solid border-[#ccc]"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="" class="pb-1">終了日:</label>
-            <div
-              class="input-group date"
-              id="reservationdate"
-              data-target-input="nearest"
-            >
-              <AdminDatePicker
-                :isIcon="false"
-                class="rounded-sm border-[1px] border-solid border-[#ccc]"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="" class="pb-1">ユーザー名:</label>
-            <div
-              class="input-group date"
-              id="reservationdate"
-              data-target-input="nearest"
-            >
-              <input
-                required
-                type="text"
-                class="bg-white focus:border-primary h-[38px] w-[170px] rounded-sm text-[14px] border-[1px] border-solid border-[#ccc] px-[10px] py-[6px]"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="grid grid-cols-11 gap-3">
-          <div class="col-span-3">
-            <SelectMulti
-              title="登録日"
-              :options="userAdmin.optionRegisteredTime"
-              v-model="form.resignDate"
-              value="regdate"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-between">
-                  <div class="w-full text-center">
-                    {{ data.regdate }}
-                  </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
-                  >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </SelectMulti>
-          </div>
-          <div class="col-span-3">
-            <SelectMulti
-              title="解約日"
-              :options="userAdmin.optionCandateTime"
-              v-model="form.contractDate"
-              value="candate"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-between">
-                  <div class="w-full text-center">
-                    {{ data.candate }}
-                  </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
-                  >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </SelectMulti>
-          </div>
-          <div class="col-span-3">
-            <SelectMulti
-              title="ステータス"
-              :options="userAdmin.optionStatus"
-              value="status"
-              v-model="form.status"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-end">
-                  <div class="flex w-full items-center justify-center">
-                    <div
-                      :class="{
-                        'status-new': data.status === STATUS_USER.NEW,
-                        'status-waiting-reports':
-                          data.status === STATUS_USER.WAITING_REPORT,
-                        'status-calculating':
-                          data.status === STATUS_USER.CALCULATING,
-                        'status-stripe-processing':
-                          data.status === STATUS_USER.STRIPE_PROCESSING,
-                        'status-waiting-payment':
-                          data.status === STATUS_USER.WAITING_PAYMENT,
-                        'status-data-reflecting':
-                          data.status === STATUS_USER.DATA_REFRESHING,
-                        'status-use': data.status === STATUS_USER.USE,
-                        'status-cancel-application':
-                          data.status === STATUS_USER.CANCEL_APPLICATION,
-                        'status-cancel-processing':
-                          data.status === STATUS_USER.CANCEL_PROCESSING,
-                        'status-cancel': data.status === STATUS_USER.CANCEL,
-                        'status-stop': data.status === STATUS_USER.STOP,
-                        'status-error': data.status === STATUS_USER.ERROR,
-                      }"
-                      class="flex h-[30px] w-[130px] items-center justify-center rounded-full text-white"
-                    >
-                      <div
-                        class="m-1 w-full rounded-full text-center font-semibold"
-                      >
-                        {{ STATUS_USER_TITLE[data.status] }}
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
-                  >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </SelectMulti>
-          </div>
-          <div class="col-span-2 flex items-end justify-center pb-10">
-            <button class="btn btn-outline-primary w-[170px]">保存</button>
-          </div>
-        </div> -->
         <div>
-          <div class="flex gap-x-3">
+          <div class="flex gap-x-3 pb-2">
             <SearchItem
               title="開始日"
               :value="form.startDate"
@@ -321,17 +180,12 @@ const handleFilter = () => {
                   fieldLabel="label"
                   v-model="form.status"
                 />
-                <!-- <AdminDatePicker
-                  :isIcon="false"
-                  v-model="form.status"
-                  class="rounded-sm border-[1px] border-solid border-[#ccc]"
-                /> -->
               </template>
             </SearchItem>
           </div>
           <AdminTable :headers="dataTable.headers" :data="items">
             <template #loginid="{ data }">
-              <NuxtLink :to="`/mng/users/${data.id}`">
+              <NuxtLink :to="`/mng/users/edit?id=${data.id}`">
                 <div class="h-full">
                   <p
                     class="cursor-pointer text-left text-primary hover:underline"

@@ -1,7 +1,7 @@
 <script setup>
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import { ja } from "date-fns/locale";
+import { de, ja } from "date-fns/locale";
 import dayjs from "dayjs";
 import { watch, ref, useTemplateRef } from "vue";
 
@@ -32,17 +32,35 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  monthPicker: {
+    type: Boolean,
+    default: false,
+  },
 });
-const datepicker = useTemplateRef("datepicker");
-const model = defineModel();
+const date = ref(
+  props.monthPicker
+    ? dayjs(new Date()).format("YYYY/MM")
+    : dayjs(new Date()).format("YYYY/MM/DD")
+);
 const format = (date) => {
+  if (props.monthPicker) {
+    return dayjs(date).format("YYYY/MM");
+  }
+
   return dayjs(date).format("YYYY/MM/DD");
 };
-watch(model, (value) => {
-  console.log("value", value);
-  // console.log("model", format(value));
-  emit("update:modelValue",　dayjs(value).format("YYYY/MM/DD"));
-});
+watch(
+  () => date.value,
+  (value) => {
+    emit(
+      "update:modelValue",
+      props.monthPicker
+        ? `${value.year}/${parseInt(value.month) + 1}`
+        : dayjs(value).format("YYYY/MM/DD")
+    );
+  },
+  { deep: true }
+);
 </script>
 <template>
   <div>
@@ -50,25 +68,19 @@ watch(model, (value) => {
       <VueDatePicker
         :class="{ classes }"
         class="border-none focus:border-primary w-full"
-        v-model="model"
+        v-model="date"
         :format-locale="ja"
         :format="format"
         :preview-format="format"
         auto-apply
+        :month-picker="monthPicker"
         ref="datepicker"
       >
-        <template #action-buttons> </template>
-       
-        <template #clear-icon>
-          <!-- <img
-            src="~/assets/images/admin/calendar.png"
-            width="26px"
-            height="26px"
-          /> -->
-          <!-- <font-awesome-icon icon="fa-solid fa-bars" /> -->
-        </template>
+        <template #action-buttons></template>
+
+        <template #clear-icon> </template>
         <template #input-icon>
-            <font-awesome-icon v-if="isIcon" icon="calendar-days" />
+          <font-awesome-icon v-if="isIcon" icon="calendar-days" />
         </template>
       </VueDatePicker>
     </div>

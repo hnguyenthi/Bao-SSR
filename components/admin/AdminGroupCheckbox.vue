@@ -61,13 +61,17 @@ watch(
         </div>
         <div class="relative">
             <Checkbox
-                class="py-1"
+                class="py-1 text-[14px]"
                 :label="item[fieldLabel] ?? item[fieldValue]"
                 v-model:checked="model"
                 :value="item[fieldValue]"
                 v-for="item in options"
                 :key="item.value"
-            />
+            >
+            <template #label v-if="$slots.label">
+                <slot name="label" :data="item"></slot>
+            </template>
+            </Checkbox>
             <div v-show="error" class="formError">
                 <div class="formErrorContent">
                     <p>{{ error }}</p>

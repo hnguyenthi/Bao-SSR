@@ -2,6 +2,7 @@
 import { STATUS_PURCHASE } from "~/utils/constraints.js";
 import { ref, reactive, watch } from "vue";
 import purchases from "~/assets/mockData/purchases.json";
+import { statusClass } from "~/utils";
 
 const data = ref(purchases.data);
 const optionsRegisterTime = ref(purchases.optionsRegisterTime);
@@ -9,7 +10,7 @@ const optionsStatus = ref(purchases.optionsStatus);
 const optionServices = ref(purchases.optionServices);
 const services = ref(purchases.services);
 const form = ref({
-  optionsRegisterTime: [],
+  optionsRegisterTime: "",
   optionsStatus: [],
   optionServices: [],
 });
@@ -19,37 +20,37 @@ const dataTable = ref({
       title: "申込日時",
       field: "entry_date",
       sort: true,
-      width: "120px",
+      width: "180px",
     },
     {
       title: "オプション",
       field: "option_id",
       sort: true,
-      width: "120px",
+      width: "160px",
     },
     {
       title: "名前",
       field: "name",
       sort: true,
-      width: "130px",
+      width: "180px",
     },
     {
       title: "メールアドレス",
       field: "mail",
       sort: true,
-      width: "130px",
+      width: "240px",
     },
     {
       title: "ログインID",
       field: "loginid",
       sort: true,
-      width: "120px",
+      width: "240px",
     },
     {
       title: "ステータス",
       field: "status",
       sort: true,
-      width: "145px",
+      width: "190px",
     },
     {
       title: "管理者メモ",
@@ -80,167 +81,215 @@ const getData = () => {
     return isStatus && isRegister && isServices;
   });
 };
-watch(
-  () => form.value,
-  (value) => {
-    getData();
-  },
-  { deep: true }
-);
+// watch(
+//   () => form.value,
+//   (value) => {
+//     getData();
+//   },
+//   { deep: true }
+// );
+const callBackService = (item) => {
+  form.value.optionServices = form.value.optionServices.filter(
+    (i) => i !== item
+  );
+};
+const callBackStatus = (item) => {
+  form.value.optionsStatus = form.value.optionsStatus.filter((i) => i !== item);
+};
+const handleFilter = (value) => {};
 </script>
 
 <template>
   <div>
     <!-- <Breadcrumb :breadcrumbs="breadcrumbs" /> -->
-    <PageTitle title="オプション購入履歴　一覧" />
-
+    <h3 class="pb-[15px] text-h2 font-normal text-dark mr-3">
+      オプション購入履歴　一覧"
+    </h3>
     <div class="admin-box">
       <div class="admin-user__statement-list">
-        <div class="grid grid-cols-11 gap-3">
-          <div class="col-span-3">
-            <!-- <SelectMulti
-              title="申込年月"
-              :options="optionsRegisterTime"
-              value="entry_month"
-              v-model="form.optionsRegisterTime"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-between">
-                  <div class="w-full text-center">
-                    {{ data.entry_month }}
-                  </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
+        <div>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-x-3 pb-2">
+              <SearchItem
+                title="申込年月"
+                :value="form.optionsRegisterTime"
+                :callback="handleFilter"
+              >
+                <template #content>
+                  <AdminDatePicker
+                    monthPicker
+                    :isIcon="false"
+                    v-model="form.optionsRegisterTime"
+                    class="rounded-sm border-[1px] border-solid border-[#ccc]"
+                  />
+                </template>
+              </SearchItem>
+              <SearchItem
+                title="オプション種類"
+                :value="form.optionServices"
+                :callback="handleFilter"
+              >
+                <template #value>
+                  <span
+                    class=""
+                    v-for="item in form.optionServices.slice(0, 3)"
+                    :key="item"
                   >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </SelectMulti> -->
-            <AdminSelectMulti
-              title="申込年月"
-              :options="optionsRegisterTime"
-              value="entry_month"
-              v-model="form.optionsRegisterTime"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-between w-full">
-                  <div class="w-full text-center">
-                    {{ data.entry_month }}
-                  </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
+                    <Tag
+                      :text="
+                        optionServices.find((i) => i.option_id == item)
+                          ?.option_display_name
+                      "
+                      :close="
+                        () => {
+                          callBackService(item);
+                        }
+                      "
+                    />
+                  </span>
+                  <span
+                    class="text-[14px] font-semibold text-primary"
+                    v-if="form.optionServices.length > 3"
+                    >他{{ form.optionServices.length - 3 }}件</span
                   >
-                    {{ data.total }}
+                </template>
+                <template #content>
+                  <div class="max-h-[220px] overflow-y-auto">
+                    <AdminGroupCheckbox
+                      v-model="form.optionServices"
+                      :options="optionServices"
+                      fieldValue="option_id"
+                      fieldLabel="option_display_name"
+                    />
                   </div>
-                </div>
-              </template>
-              <template #tag="{ data }">
-                <div
-                  class="min-w-[100px] flex items-center justify-between px-2 active"
-                >
-                  <div class="w-full text-left">
-                    {{ data.entry_month }}
-                  </div>
-                  <div
-                    class="item-total w-[35px] rounded-sm bg-white text-center text-[12px]"
+                </template>
+              </SearchItem>
+              <SearchItem
+                title="ステータス"
+                :value="form.optionsStatus"
+                :callback="handleFilter"
+              >
+                <template #value>
+                  <span
+                    v-for="item in form.optionsStatus.slice(0, 3)"
+                    :key="item"
+                    class="text-[14px] rounded-[5px] px-[5px] mx-[1px]"
+                    :class="statusClass(item.split(`-`))"
                   >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </AdminSelectMulti>
-          </div>
-          <div class="col-span-3">
-            <SelectMulti
-              title="オプション種類"
-              :options="optionServices"
-              value="option_id"
-              v-model="form.optionServices"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-between">
-                  <div class="w-full text-center">
-                    {{ data.option_display_name }}
-                  </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
+                    {{
+                      STATUS_PURCHASE[item.split(`-`)[0]]?.find(
+                        (i) => i.value == item.split(`-`)[1]
+                      )?.label
+                    }}
+                    <font-awesome-icon
+                      class="scale-[0.8] pl-1"
+                      @click.stop="callBackStatus(item)"
+                      icon="circle-xmark"
+                    />
+                  </span>
+                  <span
+                    class="text-[14px] font-semibold text-primary"
+                    v-if="form.optionsStatus.length > 3"
+                    >他{{ form.optionsStatus.length - 3 }}件</span
                   >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </SelectMulti>
-          </div>
-          <div class="col-span-3">
-            <SelectMulti
-              title="ステータス"
-              :options="optionsStatus"
-              value="value"
-              v-model="form.optionsStatus"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-end">
-                  <div class="flex w-full items-center justify-center">
-                    <div
-                      :class="{
-                        'status-entry-settled':
-                          STATUS_PURCHASE[data.option_id].length === 3 &&
-                          data.status == 1,
-                        'status-report-creating':
-                          STATUS_PURCHASE[data.option_id].length == 3 &&
-                          data.status == 2,
-                        'status-report-delivered':
-                          STATUS_PURCHASE[data.option_id].length == 3 &&
-                          data.status == 3,
-
-                        'status-passed-customers':
-                          STATUS_PURCHASE[data.option_id].length == 4 &&
-                          data.status === 1,
-                        'status-CBIT-Matched':
-                          STATUS_PURCHASE[data.option_id].length === 4 &&
-                          data.status === 2,
-                        'status-GoldKey-Matched':
-                          STATUS_PURCHASE[data.option_id].length === 4 &&
-                          data.status === 3,
-                        'status-Purchased':
-                          STATUS_PURCHASE[data.option_id].length === 4 &&
-                          data.status === 4,
-                      }"
-                      class="flex h-[35px] w-[130px] items-center justify-center rounded-full text-white"
+                </template>
+                <template #content>
+                  <div class="max-h-[220px] overflow-y-auto">
+                    <AdminGroupCheckbox
+                      :options="optionsStatus"
+                      fieldValue="value"
+                      fieldLabel="option_display_name"
+                      v-model="form.optionsStatus"
                     >
-                      {{
-                        STATUS_PURCHASE[data.option_id].find(
-                          (i) => i.value === data.status
-                        )?.label
-                      }}
-                    </div>
+                      <template #label="{ data }">
+                        {{
+                          STATUS_PURCHASE[data.option_id]?.find(
+                            (i) => i.value == data.status
+                          )?.label
+                        }}
+                      </template>
+                    </AdminGroupCheckbox>
                   </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
+                </template>
+              </SearchItem>
+              <!-- <SearchItem
+                title="ステータス"
+                :value="
+                  STATUS_PURCHASE[form.optionsStatus.split(`-`)[0]]?.find(
+                    (i) => i.value == form.optionsStatus.split(`-`)[1]
+                  )?.label
+                "
+                :callback="handleFilter"
+              >
+                <template #value>
+                  <span
+                    class="text-[14px] rounded-[5px] px-[5px]"
+                    :class="statusClass(form.optionsStatus.split(`-`))"
                   >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </SelectMulti>
-          </div>
-          <div class="col-span-2 flex items-end justify-center pb-10">
-            <div class="w-full pl-10">
-              <button class="btn btn-block btn-outline-primary">
+                    {{
+                      STATUS_PURCHASE[form.optionsStatus.split(`-`)[0]]?.find(
+                        (i) => i.value == form.optionsStatus.split(`-`)[1]
+                      )?.label
+                    }}
+                    <font-awesome-icon
+                      class="scale-[0.8] pl-1"
+                      @click.stop="
+                        () => {
+                          form.optionsStatus = '';
+                          handleFilter();
+                        }
+                      "
+                      icon="circle-xmark"
+                    />
+                  </span>
+                </template>
+                <template #content>
+                  <AdminDropdown
+                    :options="optionsStatus"
+                    fieldValue="value"
+                    fieldLabel="option_display_name"
+                    v-model="form.optionsStatus"
+                  >
+                    <template #option="{ data }">
+                      <div class="h-full">
+                        <p class="text-center">
+                          {{
+                            STATUS_PURCHASE[data.option_id]?.find(
+                              (i) => i.value == data.status
+                            )?.label
+                          }}
+                        </p>
+                      </div>
+                    </template>
+                    <template #active>
+                      <div class="h-full">
+                        {{
+                          STATUS_PURCHASE[
+                            form.optionsStatus.split(`-`)[0]
+                          ]?.find(
+                            (i) => i.value == form.optionsStatus.split(`-`)[1]
+                          )?.label
+                        }}
+                      </div>
+                    </template>
+                  </AdminDropdown>
+                </template>
+              </SearchItem> -->
+            </div>
+            <div class="flex gap-x-3">
+              <button class="btn btn-outline-primary btn-sm shadow-md">
                 オプションcsv
               </button>
-              <button class="btn btn-block btn-outline-primary">
+              <button class="btn btn-outline-primary btn-sm shadow-md">
                 csvダウンロード
+                <font-awesome-icon class="pl-1" icon="file-arrow-down" />
               </button>
-              <button class="btn btn-block btn-outline-primary">
+              <button class="btn btn-outline-primary btn-sm shadow-md">
                 Excelダウンロード
+                <font-awesome-icon class="pl-1" icon="file-arrow-down" />
               </button>
-              <button class="btn btn-block btn-outline-primary">保存</button>
             </div>
           </div>
-        </div>
-        <div>
           <AdminTable :headers="dataTable.headers" :data="items">
             <template #option_id="{ data }">
               <div class="h-full">
@@ -268,33 +317,12 @@ watch(
             </template>
             <template #status="{ data }">
               <div class="">
-                <div class="flex w-full items-center justify-center">
+                <div class="flex w-full items-center justify-start">
                   <div
-                    :class="{
-                      'status-entry-settled':
-                        STATUS_PURCHASE[data.option_id].length === 3 &&
-                        data.status == 1,
-                      'status-report-creating':
-                        STATUS_PURCHASE[data.option_id].length == 3 &&
-                        data.status == 2,
-                      'status-report-delivered':
-                        STATUS_PURCHASE[data.option_id].length == 3 &&
-                        data.status == 3,
-
-                      'status-passed-customers':
-                        STATUS_PURCHASE[data.option_id].length == 4 &&
-                        data.status === 1,
-                      'status-CBIT-Matched':
-                        STATUS_PURCHASE[data.option_id].length === 4 &&
-                        data.status === 2,
-                      'status-GoldKey-Matched':
-                        STATUS_PURCHASE[data.option_id].length === 4 &&
-                        data.status === 3,
-                      'status-Purchased':
-                        STATUS_PURCHASE[data.option_id].length === 4 &&
-                        data.status === 4,
-                    }"
-                    class="flex h-[35px] w-[140px] items-center justify-center rounded-full text-white"
+                    :class="
+                      statusClass([`${data.option_id}`, `${data.status}`])
+                    "
+                    class="flex py-[2px] px-3 items-center justify-center rounded-full"
                   >
                     {{
                       STATUS_PURCHASE[data.option_id].find(
@@ -334,39 +362,4 @@ watch(
     color: theme("colors.white");
   }
 }
-.status-passed-customers {
-  color: #fff;
-  background-color: #4a92ce;
-}
-
-.status-entry-settled,
-.status-report-creating,
-.status-CBIT-Matched,
-.status-GoldKey-Matched {
-  color: rgb(197, 137, 26) !important;
-  background-color: #fcee27;
-}
-
-.status-report-delivered,
-.status-Purchased {
-  background-color: #41ad41;
-  color: #fff;
-}
-
-// .status-passed-customers,
-// .status-Purchased {
-
-// 	padding: 1px 48px !important;
-// }
-
-// .status-CBIT-Matched {
-// 	padding: 1px 28px !important;
-// }
-
-// .status-GoldKey-Matched,
-// .status-entry-settled,
-// .status-report-creating,
-// .status-report-delivered {
-// 	padding: 1px 16px !important;
-// }
 </style>

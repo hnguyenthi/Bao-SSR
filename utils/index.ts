@@ -1,6 +1,11 @@
 import dayjs from "dayjs";
 import { gsap } from "gsap";
-import { REFLECTION_STATUS, USER_STATUS, APPROVE_STATUS } from "./constraints";
+import {
+  REFLECTION_STATUS,
+  USER_STATUS,
+  APPROVE_STATUS,
+  STATUS_PURCHASE,
+} from "./constraints";
 export const formatPrice = (value: any) => {
   if (isNaN(value) || value === "") return "";
   return `￥${(value + "").replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}`;
@@ -14,7 +19,8 @@ export const formatDateYYYYMMDD = (value: string) => {
   return dayjs(value).format("YYYY/MM/DD");
 };
 
-export const formatDateCustom = (value: string, format: string) => {
+export const formatDateCustom = (value: any, format: string) => {
+  console.log(value);
   if (!value) return "";
   if (!format) {
     format = "YYYY/MM/DD hh:mm:ss";
@@ -133,4 +139,28 @@ export const approveClass = (value: number) => {
       break;
   }
   return classStatus;
+};
+
+export const statusClass = (arr: Array<string>) => {
+  const option_id = parseInt(arr[0]) as keyof typeof STATUS_PURCHASE;
+  const status = parseInt(arr[1]);
+  if (STATUS_PURCHASE[option_id].length === 3 && status === 1)
+    return "status-entry-settled";
+  if (STATUS_PURCHASE[option_id].length === 3 && status === 2)
+    return "status-report-creating";
+
+  if (STATUS_PURCHASE[option_id].length === 3 && status === 3)
+    return "status-report-delivered";
+
+  if (STATUS_PURCHASE[option_id].length === 4 && status === 1)
+    return "status-passed-customers";
+
+  if (STATUS_PURCHASE[option_id].length === 4 && status === 2)
+    return "status-CBIT-Matched";
+
+  if (STATUS_PURCHASE[option_id].length === 4 && status === 3)
+    return "status-GoldKey-Matched";
+
+  if (STATUS_PURCHASE[option_id].length === 4 && status === 4)
+    return "status-Purchased";
 };

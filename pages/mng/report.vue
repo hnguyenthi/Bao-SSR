@@ -1,177 +1,139 @@
 <script setup>
 import {
   STATUS_REFLECTION,
-  STATUS_REFLECTION_TITLE,
+  REFLECTION_STATUS,
   STATUS_APPROVE,
-  STATUS_APPROVE_TITLE,
+  APPROVE_STATUS,
 } from "~/utils/constraints.js";
 import { ref, reactive, watch } from "vue";
 import report from "~/assets/mockData/attachment.json";
-import { formatDateYYYYMMDD, formatDateCustom } from "~/utils";
+import {
+  flectionClass,
+  approveClass,
+  formatDateYYYYMMDD,
+  formatDateCustom,
+} from "~/utils";
 
 const form = reactive({
-  resignDate: [],
-  flectionStatus: [],
-  approveStatus: [],
+  resignDate: "",
+  flectionStatus: null,
+  approveStatus: 1,
+  deadlineDate: "",
+  resultDate: "",
+  creator: "",
+  userName: "",
 });
 const reports = ref(report);
-const options = [
-  {
-    value: "2019/04/09",
-    total: 1,
-  },
-  {
-    value: "2019/06/19",
-    total: 2,
-  },
-  {
-    value: "2019/04/29",
-    total: 3,
-  },
-  {
-    value: "2018/04/09",
-    total: 1,
-  },
-  {
-    value: "2018/06/19",
-    total: 2,
-  },
-  {
-    value: "2018/04/29",
-    total: 3,
-  },
-  {
-    value: "2017/04/09",
-    total: 1,
-  },
-  {
-    value: "2017/06/19",
-    total: 2,
-  },
-  {
-    value: "2017/04/29",
-    total: 3,
-  },
-  {
-    value: "2020/04/09",
-    total: 1,
-  },
-  {
-    value: "2020/06/19",
-    total: 2,
-  },
-  {
-    value: "2020/04/29",
-    total: 3,
-  },
-];
-const optionApprove = [
-  {
-    label: STATUS_APPROVE_TITLE[STATUS_APPROVE.UN_APPROVED],
-    status: STATUS_APPROVE.UN_APPROVED,
-    total: 34,
-  },
-  {
-    label: STATUS_APPROVE_TITLE[STATUS_APPROVE.DOC_AWAIT_APPROVE],
-    status: STATUS_APPROVE.DOC_AWAIT_APPROVE,
-    total: 34,
-  },
-  {
-    label: STATUS_APPROVE_TITLE[STATUS_APPROVE.DOC_APPROVED],
-    status: STATUS_APPROVE.DOC_APPROVED,
-    total: 2,
-  },
-  {
-    label: STATUS_APPROVE_TITLE[STATUS_APPROVE.ES_AWAIT_APPROVE],
-    status: STATUS_APPROVE.ES_AWAIT_APPROVE,
-    total: 9,
-  },
-  {
-    label: STATUS_APPROVE_TITLE[STATUS_APPROVE.ES_APPROVED],
-    status: STATUS_APPROVE.ES_APPROVED,
-    total: 41,
-  },
-];
-const flectionStatus = [
-  {
-    label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.NOT_REFLECTED],
-    status: STATUS_REFLECTION.NOT_REFLECTED,
-    total: 34,
-  },
-  {
-    label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.REFLECTING],
-    status: STATUS_REFLECTION.REFLECTING,
-    total: 34,
-  },
-  {
-    label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.REFLECTED],
-    status: STATUS_REFLECTION.REFLECTED,
-    total: 2,
-  },
-  {
-    label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.ERROR],
-    status: STATUS_REFLECTION.ERROR,
-    total: 9,
-  },
-  {
-    label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.NOT_SUBJECT],
-    status: STATUS_REFLECTION.NOT_SUBJECT,
-    total: 41,
-  },
-];
+// const options = [
+//   {
+//     value: "2019/04/09",
+//     total: 1,
+//   },
+//   {
+//     value: "2019/06/19",
+//     total: 2,
+//   },
+//   {
+//     value: "2019/04/29",
+//     total: 3,
+//   },
+//   {
+//     value: "2018/04/09",
+//     total: 1,
+//   },
+//   {
+//     value: "2018/06/19",
+//     total: 2,
+//   },
+//   {
+//     value: "2018/04/29",
+//     total: 3,
+//   },
+//   {
+//     value: "2017/04/09",
+//     total: 1,
+//   },
+//   {
+//     value: "2017/06/19",
+//     total: 2,
+//   },
+//   {
+//     value: "2017/04/29",
+//     total: 3,
+//   },
+//   {
+//     value: "2020/04/09",
+//     total: 1,
+//   },
+//   {
+//     value: "2020/06/19",
+//     total: 2,
+//   },
+//   {
+//     value: "2020/04/29",
+//     total: 3,
+//   },
+// ];
+// const optionApprove = [
+//   {
+//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.UN_APPROVED],
+//     status: STATUS_APPROVE.UN_APPROVED,
+//     total: 34,
+//   },
+//   {
+//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.DOC_AWAIT_APPROVE],
+//     status: STATUS_APPROVE.DOC_AWAIT_APPROVE,
+//     total: 34,
+//   },
+//   {
+//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.DOC_APPROVED],
+//     status: STATUS_APPROVE.DOC_APPROVED,
+//     total: 2,
+//   },
+//   {
+//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.ES_AWAIT_APPROVE],
+//     status: STATUS_APPROVE.ES_AWAIT_APPROVE,
+//     total: 9,
+//   },
+//   {
+//     label: STATUS_APPROVE_TITLE[STATUS_APPROVE.ES_APPROVED],
+//     status: STATUS_APPROVE.ES_APPROVED,
+//     total: 41,
+//   },
+// ];
+// const flectionStatus = [
+//   {
+//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.NOT_REFLECTED],
+//     status: STATUS_REFLECTION.NOT_REFLECTED,
+//     total: 34,
+//   },
+//   {
+//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.REFLECTING],
+//     status: STATUS_REFLECTION.REFLECTING,
+//     total: 34,
+//   },
+//   {
+//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.REFLECTED],
+//     status: STATUS_REFLECTION.REFLECTED,
+//     total: 2,
+//   },
+//   {
+//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.ERROR],
+//     status: STATUS_REFLECTION.ERROR,
+//     total: 9,
+//   },
+//   {
+//     label: STATUS_REFLECTION_TITLE[STATUS_REFLECTION.NOT_SUBJECT],
+//     status: STATUS_REFLECTION.NOT_SUBJECT,
+//     total: 41,
+//   },
+// ];
 const paging = ref({
   itemPerPage: 25,
   totalPage: Math.ceil(report.length / 25),
   currentPage: 1,
 });
-const classesFlection = (value) => {
-  let classStatus = "";
-  switch (value) {
-    case STATUS_REFLECTION.NOT_REFLECTED:
-      classStatus = "refl-status-not-reflect";
-      break;
-    case STATUS_REFLECTION.REFLECTING:
-      classStatus = "refl-status-reflecting";
-      break;
-    case STATUS_REFLECTION.REFLECTED:
-      classStatus = "refl-status-reflected";
-      break;
-    case STATUS_REFLECTION.ERROR:
-      classStatus = "refl-status-error";
-      break;
 
-    case STATUS_REFLECTION.NOT_SUBJECT:
-      classStatus = "refl-status-notSubject";
-      break;
-    default:
-      break;
-  }
-  return classStatus;
-};
-const classesApprove = (value) => {
-  let classStatus = "";
-  switch (value) {
-    case STATUS_APPROVE.UN_APPROVED:
-      classStatus = "refl-status-not-reflect";
-      break;
-    case STATUS_APPROVE.DOC_AWAIT_APPROVE:
-      classStatus = "approve-status-pending";
-      break;
-    case STATUS_APPROVE.DOC_APPROVED:
-      classStatus = "refl-status-reflected";
-      break;
-    case STATUS_APPROVE.ES_AWAIT_APPROVE:
-      classStatus = "approve-status-pending";
-      break;
-
-    case STATUS_APPROVE.ES_APPROVED:
-      classStatus = "refl-status-reflected";
-      break;
-    default:
-      break;
-  }
-  return classStatus;
-};
 const dataTable = {
   headers: [
     {
@@ -202,7 +164,7 @@ const dataTable = {
       title: "棟",
       field: "filename",
       sort: true,
-      width: "180px",
+      width: "130px",
     },
     {
       title: "報告書年月",
@@ -243,193 +205,150 @@ const dataTable = {
   data: report,
 };
 const selected = ref([]);
+const handleFilter = () => {
+  console.log("handleFilter");
+};
 </script>
 
 <template>
   <div>
     <!-- <Breadcrumb :breadcrumbs="breadcrumbs" /> -->
-    <PageTitle title="収支報告書　一覧" />
+    <h3 class="pb-[15px] text-h2 font-normal text-dark mr-3">
+      収支報告書　一覧
+    </h3>
     <div class="admin-box">
       <div class="admin-user__statement-list">
-        <div class="row gap-x-8">
-          <div class="form-group">
-            <label for="" class="pb-1">登録日:</label>
-            <div
-              class="input-group date flex items-center"
-              id="reservationdate"
-              data-target-input="nearest"
-            >
-              <AdminDatePicker
-                :isIcon="false"
-                class="w-[110px] border-[1px] border-solid border-[#ccc] rounded-sm"
-              />
-              ～
-              <AdminDatePicker
-                :isIcon="false"
-                class="w-[110px] border-[1px] border-solid border-[#ccc] rounded-sm"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="" class="pb-1">ES作成期限:</label>
-            <div
-              class="input-group date flex items-center"
-              id="reservationdate"
-              data-target-input="nearest"
-            >
-              <AdminDatePicker
-                :isIcon="false"
-                class="w-[110px] border-[1px] border-solid border-[#ccc] rounded-sm"
-              />
-              ～
-              <AdminDatePicker
-                :isIcon="false"
-                class="w-[110px] border-[1px] border-solid border-[#ccc] rounded-sm"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="" class="pb-1">データ反映期限:</label>
-            <div
-              class="input-group date flex items-center"
-              id="reservationdate"
-              data-target-input="nearest"
-            >
-              <AdminDatePicker
-                :isIcon="false"
-                class="w-[110px] border-[1px] border-solid border-[#ccc] rounded-sm"
-              />
-              ～
-              <AdminDatePicker
-                :isIcon="false"
-                class="w-[110px] border-[1px] border-solid border-[#ccc] rounded-sm"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="" class="pb-1">ES作成担当者:</label>
-            <div
-              class="input-group date"
-              id="reservationdate"
-              data-target-input="nearest"
-            >
-              <input
-                required
-                type="text"
-                class="h-[38px] w-[120px] rounded-sm text-[14px] border-[1px] border-solid border-[#ccc]"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="" class="pb-1">ユーザー名:</label>
-            <div
-              class="input-group date"
-              id="reservationdate"
-              data-target-input="nearest"
-            >
-              <input
-                required
-                type="text"
-                class="px-2 h-[38px] w-[120px] rounded-sm text-[14px] border-[1px] border-solid border-[#ccc]"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="grid grid-cols-11 gap-3">
-          <div class="col-span-3">
-            <SelectMulti
-              title="登録日"
-              :options="options"
-              v-model="form.resignDate"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-between">
-                  <div class="w-full text-center">
-                    {{ data.value }}
-                  </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
-                  >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </SelectMulti>
-          </div>
-          <div class="col-span-3">
-            <SelectMulti
-              title="反映状況"
-              :options="flectionStatus"
-              v-model="form.flectionStatus"
-              value="status"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-end">
-                  <div class="flex w-full items-center justify-center">
-                    <div
-                      :class="classesFlection(data.status)"
-                      class="flex h-[35px] w-[100px] items-center justify-center rounded-full p-1 text-white"
-                    >
-                      <div
-                        class="w-full rounded-full border-[1px] border-dashed border-white text-center font-semibold"
-                      >
-                        {{ data.label }}
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
-                  >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </SelectMulti>
-          </div>
-          <div class="col-span-3">
-            <SelectMulti
-              title="承認状況"
-              :options="optionApprove"
-              value="status"
-              v-model="form.approveStatus"
-            >
-              <template #item="{ data }">
-                <div class="flex items-center justify-end">
-                  <div class="flex w-full items-center justify-center">
-                    <div
-                      :class="classesApprove(data.status)"
-                      class="flex h-[35px] w-[100px] items-center justify-center rounded-full text-white"
-                    >
-                      <div
-                        class="m-1 w-full rounded-full border-[1px] border-dashed border-white text-center font-semibold"
-                      >
-                        {{ data.label }}
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="item-total w-[45px] rounded-sm bg-[#3276b180] text-center text-[12px]"
-                  >
-                    {{ data.total }}
-                  </div>
-                </div>
-              </template>
-            </SelectMulti>
-          </div>
-          <div class="col-span-2 flex items-end justify-center pb-10">
-            <button class="btn btn-block btn-outline-primary">保存</button>
-          </div>
-        </div>
         <!-- table -->
-        <div>
+        <div class="flex gap-x-3 pb-2">
           <SearchItem
             title="登録日"
-            :value="form.startDate"
+            :value="form.resignDate"
             :callback="handleFilter"
           >
             <template #content>
               <RangeDate
-                classes="w-[110px] border-[1px] border-solid border-[#ccc] rounded-sm"
+                v-model="form.resignDate"
+                classes="border-[1px] border-solid border-[#ccc] rounded-sm"
+              />
+            </template>
+          </SearchItem>
+          <SearchItem
+            title="ES作成期限"
+            :value="form.deadlineDate"
+            :callback="handleFilter"
+          >
+            <template #content>
+              <RangeDate
+                v-model="form.deadlineDate"
+                classes=" border-[1px] border-solid border-[#ccc] rounded-sm"
+              />
+            </template>
+          </SearchItem>
+          <SearchItem
+            title="データ反映期限"
+            :value="form.resultDate"
+            :callback="handleFilter"
+          >
+            <template #content>
+              <RangeDate
+                v-model="form.resultDate"
+                classes="border-[1px] border-solid border-[#ccc] rounded-sm"
+              />
+            </template>
+          </SearchItem>
+          <SearchItem
+            title="ES作成担当者"
+            :value="form.creator"
+            :callback="handleFilter"
+          >
+            <template #content>
+              <input
+                v-model="form.creator"
+                class="form-control bg-white rounded-sm !border-end-1 mr-[2px] text-[14px] !h-[30px]"
+              />
+            </template>
+          </SearchItem>
+          <SearchItem
+            title="ユーザー名"
+            :value="form.userName"
+            :callback="handleFilter"
+          >
+            <template #content>
+              <input
+                v-model="form.userName"
+                class="form-control bg-white rounded-sm !border-end-1 mr-[2px] text-[14px] !h-[30px]"
+              />
+            </template>
+          </SearchItem>
+          <SearchItem
+            title="反映状況"
+            :value="form.flectionStatus"
+            :callback="handleFilter"
+          >
+            <template #value>
+              <span
+                class="text-[14px] rounded-[5px] px-[5px]"
+                :class="flectionClass(form.flectionStatus)"
+              >
+                {{
+                  REFLECTION_STATUS.find(
+                    (item) => item.value == form.flectionStatus
+                  )?.label
+                }}
+                <font-awesome-icon
+                  class="scale-[0.8] pl-1"
+                  @click.stop="
+                    () => {
+                      form.flectionStatus = null;
+                      handleFilter();
+                    }
+                  "
+                  icon="circle-xmark"
+                />
+              </span>
+            </template>
+            <template #content>
+              <AdminDropdown
+                :options="REFLECTION_STATUS"
+                fieldValue="value"
+                fieldLabel="label"
+                v-model="form.flectionStatus"
+              />
+            </template>
+          </SearchItem>
+          <SearchItem
+            title="承認状況"
+            :value="form.approveStatus"
+            :callback="handleFilter"
+          >
+            <template #value>
+              <span
+                class="text-[14px] rounded-[5px] px-[5px]"
+                :class="approveClass(form.approveStatus)"
+              >
+                {{
+                  APPROVE_STATUS.find(
+                    (item) => item.value == form.approveStatus
+                  )?.label
+                }}
+                <font-awesome-icon
+                  class="scale-[0.8] pl-1"
+                  @click.stop="
+                    () => {
+                      form.approveStatus = null;
+                      handleFilter();
+                    }
+                  "
+                  icon="circle-xmark"
+                />
+              </span>
+            </template>
+            <template #content>
+              <AdminDropdown
+                :options="APPROVE_STATUS"
+                fieldValue="value"
+                fieldLabel="label"
+                v-model="form.approveStatus"
               />
             </template>
           </SearchItem>
@@ -464,21 +383,31 @@ const selected = ref([]);
             </template>
             <template #filename="{ data }">
               <div class="h-full">
-                <p class="text-center">
-                  {{ data.filename.slice(0, data.filename.lastIndexOf(".")) }}
-                </p>
+                <div class="relative group items-center">
+                  <p class="text-center text-one-line ">
+                    {{ data.filename.slice(0, data.filename.lastIndexOf(".")) }}
+                     <Tooltip
+                    :content="
+                      data.filename.slice(0, data.filename.lastIndexOf(`.`))
+                    "
+                  />
+                  </p>
+                 
+                </div>
               </div>
             </template>
             <template #yymm="{ data }">
               <div class="h-full">
                 <p class="text-center">
-                  {{ data.yymm || "未設定" }}
+                  {{ formatDateCustom(data.yymm, "YYYY/MM") || "未設定" }}
                 </p>
               </div>
             </template>
             <template #file_download="{ data }">
-              <div class="cursor-pointer text-primary hover:underline">
-                <p class="text-center">
+              <div
+                class="relative items-center group cursor-pointer text-primary hover:underline"
+              >
+                <p class="text-center text-one-line">
                   {{
                     data.filename
                       .slice(0, data.filename.lastIndexOf("."))
@@ -490,12 +419,25 @@ const selected = ref([]);
                         )
                       )
                   }}
+                   <Tooltip
+                    :content="
+                      data.filename
+                      .slice(0, data.filename.lastIndexOf(`.`))
+                      .concat(
+                        `報告書`,
+                        data.filename.slice(
+                          data.filename.lastIndexOf(`.`),
+                          data.filename.length
+                        )
+                      )
+                    "
+                  />
                 </p>
               </div>
             </template>
             <template #name="{ data }">
               <div class="cursor-pointer text-blue-100 hover:underline">
-                <p class="text-center">
+                <p class="text-center text-one-line">
                   {{ data.name }}
                 </p>
               </div>
@@ -503,9 +445,9 @@ const selected = ref([]);
             <template #flection_status="{ data }">
               <div class="h-full">
                 <Status
-                  :statusValue="STATUS_REFLECTION"
-                  :statusTitle="STATUS_REFLECTION_TITLE"
-                  :classFn="classesFlection"
+                  class="w-[80px]"
+                  :options="REFLECTION_STATUS"
+                  :classFn="flectionClass"
                   :value="data.status"
                 ></Status>
               </div>
@@ -513,9 +455,9 @@ const selected = ref([]);
             <template #approve_status="{ data }">
               <div class="h-full">
                 <Status
-                  :statusValue="STATUS_APPROVE"
-                  :statusTitle="STATUS_APPROVE_TITLE"
-                  :classFn="classesApprove"
+                  class="w-[100px]"
+                  :options="APPROVE_STATUS"
+                  :classFn="approveClass"
                   :value="data.status"
                 ></Status>
               </div>

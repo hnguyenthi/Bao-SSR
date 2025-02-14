@@ -20,7 +20,7 @@
 </template>
 <style lang="scss" scoped>
 .admin-footer-image {
-    background: url(@assets/images/admin/footer-manager.png) 0 0;
+    background: url(~/assets/images/admin/footer-manager.png) 0 0;
     background-repeat: repeat;
     background-position: top;
     padding: 40px 20px 0;

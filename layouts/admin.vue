@@ -46,7 +46,7 @@ const menu = [
   <div>
     <div
       v-if="route.fullPath !== '/mng/login'"
-      class="main-header !z-40 navbar navbar-expand navbar-white navbar-light fixed top-0 flex justify-between bg-dark py-0 !fixed !top-0"
+      class="main-header !z-[1039] navbar navbar-expand navbar-white navbar-light fixed top-0 flex justify-between bg-dark py-0 !fixed !top-0"
       :class="{
         '!ml-0 !w-screen': !sidebar,
       }"

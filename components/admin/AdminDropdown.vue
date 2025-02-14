@@ -83,6 +83,7 @@ const open = ref(false);
                 class="content-center dropdown"
             >
                 <div
+                v-if="!$slots.active"
                     class="text-left text-[14px]"
                 >
                     {{
@@ -92,6 +93,9 @@ const open = ref(false);
                             (item) => item[fieldValue] == modelValue,
                         )?.[fieldValue]
                     }}
+                </div>
+                <div v-else class="text-left text-[14px]">
+                    <slot name="active"></slot>
                 </div>
             </div>
             <div v-show="open" class="fixed z-40" @click="open = false"></div>
@@ -120,7 +124,11 @@ const open = ref(false);
                                     'bg-primary text-white': item[fieldValue] == modelValue,
                                 }"
                             >
-                                {{ item[fieldLabel] ||item[fieldValue] }}
+                               <p v-if="$slots.option">
+                                   <slot :data="item" name="option"></slot>
+                                
+                               </p>
+                               <p v-else> {{ item[fieldLabel] ||item[fieldValue] }}</p>
                             </div>
                         </div>
                     </div>

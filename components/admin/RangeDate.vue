@@ -51,12 +51,12 @@ watch(
 </script>
 <template>
   <div>
-    <div class="date-picker-admin">
+    <div class="range-date-picker-admin">
       <VueDatePicker
         :class="{ classes }"
         range
         multi-calendars
-        class="border-[1px] border-solid border-[#ccc] rounded-sm focus:border-primary !w-[220px]"
+        class="border-[1px] border-solid border-[#ccc] rounded-sm focus:border-primary "
         v-model="date"
         :format-locale="ja"
        :format="format"
@@ -80,7 +80,7 @@ watch(
   </div>
 </template>
 <style lang="scss">
-.date-picker-admin {
+.range-date-picker-admin {
   padding: 0px !important;
   .dp__theme_light {
     --dp-background-color: #fff;

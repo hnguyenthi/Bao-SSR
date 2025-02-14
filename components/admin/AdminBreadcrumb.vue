@@ -8,7 +8,7 @@ const props = defineProps({
 });
 </script>
 <template>
-    <div class="flex items-center content-center text-h2 mt-[20px] mb-[10px]">
+    <div class="flex items-center content-center text-h2 mb-[10px]">
         <div v-for="(item, index) in breadcrumbs" :key="index" >
             <NuxtLink v-if="index < breadcrumbs.length - 1" :to="item?.link" class="text-[#1e4290] pr-3">
                 <span class="pr-2" v-if="index > 0"> ＞</span>

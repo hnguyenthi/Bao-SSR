@@ -285,6 +285,7 @@ watch(
                 }"
               >
                 {{ header.title }}
+                <!-- <font-awesome-icon icon="angles-up-down" /> -->
               </div>
             </th>
           </tr>
@@ -328,7 +329,7 @@ watch(
                   />
                 </div>
               </div>
-              <div v-else class="">
+              <div v-else class="width-inherit">
                 <div v-if="$slots[`${header.field}`]" class="w-full">
                   <slot :name="`${header.field}`" :data="item"></slot>
                 </div>
@@ -530,7 +531,6 @@ tfoot {
 .sorting_asc {
   &::after {
     font-size: 16px;
-
     position: absolute;
     right: 0.3em;
     top: 50%;
@@ -584,5 +584,8 @@ tr {
   td:not(:last-child) {
     padding-right: 18px !important;
   }
+}
+.width-inherit {
+    width: inherit;
 }
 </style>

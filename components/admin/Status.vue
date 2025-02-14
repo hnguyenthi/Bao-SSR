@@ -38,17 +38,18 @@ const handleChange = (event) => {
 };
 </script>
 <template>
-  <div class="rounded-full p-1" :class="classes">
+  <ClientOnly>
+  <div class="rounded-md" :class="classes">
     <select
       name=""
       v-model="selected"
       @change="handleChange($event)"
-      class="w-full rounded-full text-center text-[14px] px-2"
+      class="w-full rounded-md text-center text-[14px] px-[5px]"
       :class="classes"
     >
       <option
         :class="classes"
-        class="px-2"
+        class="px-1"
         :value="status.value"
         v-for="status in options"
         :key="status"
@@ -56,22 +57,10 @@ const handleChange = (event) => {
         <p>
           {{ status.label }}
         </p>
-        <!-- <div class="flex items-center justify-end">
-                    <div class="flex w-full items-center justify-center">
-                        <div
-                            class="flex h-[35px] w-[130px] items-center justify-center rounded-full text-white"
-                        >
-                            <div
-                                class="text-[16px] m-1 w-full rounded-full border-[1px] border-dashed border-white text-center font-normal"
-                            >
-                                {{ status.label }}
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
       </option>
     </select>
   </div>
+  </ClientOnly>
 </template>
 <style lang="scss" scoped>
 select {

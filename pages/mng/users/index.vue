@@ -1,14 +1,12 @@
 <script setup>
-import {
-  USER_STATUS,
-} from "~/utils/constraints.js";
+import { USER_STATUS } from "~/utils/constraints.js";
 import { ref, watch } from "vue";
 import { formatDateYYYYMMDD, userClass } from "~/utils";
 import userAdmin from "~/assets/mockData/user-admin.json";
 
 const form = ref({
   resignDate: "",
-  status: "",
+  status: [],
   contractDate: "",
   startDate: "",
   endDate: "",
@@ -33,7 +31,7 @@ const dataTable = {
       title: "ログインID",
       field: "loginid",
       sort: true,
-      width: "150px",
+      width: "200px",
     },
     {
       title: "名前",
@@ -85,13 +83,16 @@ const getData = () => {
     return isStatus && isResignDate && isContractDate;
   });
 };
-watch(
-  () => form.value,
-  (value) => {
-    getData();
-  },
-  { deep: true }
-);
+// watch(
+//   () => form.value,
+//   (value) => {
+//     getData();
+//   },
+//   { deep: true }
+// );
+const delFilterStatus = (status) => {
+  form.value.status = form.value.status.filter((item) => item !== status);
+};
 const handleFilter = () => {
   console.log("handleFilter");
 };
@@ -173,25 +174,48 @@ const handleFilter = () => {
               :value="form.status"
               :callback="handleFilter"
             >
+              <template #value>
+                <span
+                  v-for="item in form.status.slice(0, 3)"
+                  :key="item"
+                  class="text-[14px] rounded-[5px] px-[5px] mx-[1px]"
+                  :class="userClass(item)"
+                >
+                  {{ USER_STATUS.find((i) => i.value == item)?.label }}
+                  <font-awesome-icon
+                    class="scale-[0.8] pl-1"
+                    @click.stop="delFilterStatus(item)"
+                    icon="circle-xmark"
+                  />
+                </span>
+                <span
+                  class="text-[14px] font-semibold text-primary"
+                  v-if="form.status.length > 3"
+                  >他{{ form.status.length - 3 }}件</span
+                >
+              </template>
               <template #content>
-                <AdminDropdown
-                  :options="USER_STATUS"
-                  fieldValue="value"
-                  fieldLabel="label"
-                  v-model="form.status"
-                />
+                <div class="max-h-[220px] overflow-y-auto">
+                  <AdminGroupCheckbox
+                    :options="USER_STATUS"
+                    fieldValue="value"
+                    fieldLabel="label"
+                    v-model="form.status"
+                  />
+                </div>
               </template>
             </SearchItem>
           </div>
           <AdminTable :headers="dataTable.headers" :data="items">
             <template #loginid="{ data }">
               <NuxtLink :to="`/mng/users/edit?id=${data.id}`">
-                <div class="h-full">
+                <div class="h-full relative group">
                   <p
                     class="cursor-pointer text-left text-primary hover:underline"
                   >
                     {{ data.loginid }}
                   </p>
+                  <Tooltip :content="data.loginid" />
                 </div>
               </NuxtLink>
             </template>

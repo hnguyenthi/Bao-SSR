@@ -10,7 +10,7 @@
 }
 @font-face {
   font-family: "Noto Sans JP";
-  src: url("@assets/fonts/NotoSansJP-Regular.ttf") !important;
+  src: url("~/assets/fonts/NotoSansJP-Regular.ttf") !important;
 }
 :root {
   --scrollbar: 5px;
@@ -316,40 +316,49 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .status-new {
   background-color: #aed3f1;
+  border: 1px solid #4a92ce;
   color: #4a92ce !important;
   p {
     color: #4a92ce;
   }
 }
 .status-waiting-reports {
-  background-color: #fdf476;
-  color: #ebdb03 !important;
+  background-color: #faf395;
+  border: 1px solid #8d8409;
+  color: #8d8409 !important;
   p {
-    color: #ebdb03;
+    color: #8d8409;
   }
 }
 .status-calculating {
-  background-color: #fcee27;
-  color: #ebdb03 !important;
+  border: 1px solid #8d8409;
+  background-color: #faf395;
+  color: #8d8409 !important;
   p {
-    color: #ebdb03;
+    color: #8d8409;
   }
 }
 .status-stripe-processing {
-  background-color: #fcee27;
-  color: #ebdb03 !important;
+  border: 1px solid #8d8409;
+
+  background-color: #fdf476;
+  color: #8d8409 !important;
   p {
-    color: #ebdb03;
+    color: #8d8409;
   }
 }
 .status-waiting-payment {
-  background-color: #fcee27;
-  color: #ebdb03 !important;
+  border: 1px solid #8d8409;
+
+  background-color: #fdf476;
+  color: #8d8409 !important;
   p {
-    color: #ebdb03;
+    color: #8d8409;
   }
 }
 .status-waiting-reports {
+  border: 1px solid #c5891a;
+
   background-color: #feffbf;
   color: #c5891a !important;
   p {
@@ -357,10 +366,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 .status-data-reflecting {
-  background-color: #fcee27;
-  color: #ebdb03 !important;
+  border: 1px solid #8d8409;
+
+  background-color: #faf395;
+  color: #8d8409 !important;
   p {
-    color: #ebdb03;
+    color: #8d8409;
   }
 }
 .status-waiting-reports {
@@ -368,6 +379,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: rgb(197, 137, 26) !important;
 }
 .status-use {
+  border: 1px solid #167c16;
+
   background-color: #b9f3b9;
   color: #167c16 !important;
   p {
@@ -375,12 +388,26 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 .status-cancel-application {
-  background-color: #ff8a1d;
+  border: 1px solid #b15702;
+
+  background-color: #f7c08d;
+  color: #b15702 !important;
+  p {
+    color: #b15702;
+  }
 }
 .status-cancel-processing {
-  background-color: #665b50;
+  border: 1px solid #241f19;
+
+  background-color: #d8d8d8;
+  color: #241f19 !important;
+  p {
+    color: #241f19;
+  }
 }
 .status-cancel {
+  border: 1px solid #1e368a;
+
   background-color: #8396da;
   color: #1e368a !important;
   p {
@@ -388,6 +415,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 .status-stop {
+  border: 1px solid #494949;
+
   background-color: #adadad;
   color: #494949 !important;
   p {
@@ -395,7 +424,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 .status-error {
-  background-color: #fa869d;
+  border: 1px solid #dc143c;
+  background-color: #f8b9c5;
+  color: #dc143c !important;
   p {
     color: #dc143c;
   }
@@ -452,12 +483,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   p {
     color: #4a92ce;
   }
+   border: 1px solid #4a92ce;
+  select {
+    border: transparent;
+  }
 }
 .refl-status-reflecting {
+  
   background-color: #fcc88a;
   color: #d37605 !important;
   p {
     color: #d37605;
+  }
+  border: 1px solid #d37605;
+  select {
+    border: transparent;
   }
 }
 .refl-status-reflected {
@@ -466,12 +506,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   p {
     color: #167c16;
   }
+  border: 1px solid #167c16;
+  select {
+    border: transparent;
+  }
 }
 .refl-status-error {
   background-color: #f89fb1;
   color: #dc143c !important;
   p {
     color: #dc143c;
+  }
+   border: 1px solid #dc143c;
+  select {
+    border: transparent;
   }
 }
 .refl-status-notSubject {
@@ -480,12 +528,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   p {
     color: #4e4245;
   }
+   border: 1px solid #4e4245;
+  select {
+    border: transparent;
+  }
 }
 .approve-status-pending {
   background-color: #e2aed5;
   color: #912175 !important;
   p {
     color: #912175;
+  }
+   border: 1px solid #912175;
+  select {
+    border: transparent;
   }
 }
 

@@ -1,0 +1,346 @@
+{
+  "listFields": {
+    "id": 1,
+    "sei": "出茂",
+    "mei": "太郎",
+    "seikana": "デモ",
+    "meikana": "タロウ",
+    "name": "出茂 太郎",
+    "loginid": "cbitdemo",
+    "telno": "048-111-1111",
+    "mail": "marketing@cbit.co.jp",
+    "bldgs": 0,
+    "house": 0,
+    "server": "b02",
+    "plan": null,
+    "status": 0,
+    "regdate": "2025年01月23日",
+    "candate": null,
+    "mng_memo": null,
+    "stripeid": "cus_GFRNJ2aUtGAcCr"
+  },
+  "listHouse": [],
+  "bigdata": [],
+  "spot": [
+    {
+      "id": 1,
+      "prod_name": "PC版月額利用料(岡本晃一様用プラン)8月分",
+      "unit_price": 15000,
+      "update_date": "2019-08-27 01:34:25"
+    },
+    {
+      "id": 2,
+      "prod_name": "PC版月額利用料(岡本晃一様用プラン)9月分",
+      "unit_price": 15000,
+      "update_date": "2019-09-24 02:24:11"
+    },
+    {
+      "id": 3,
+      "prod_name": "マスタ登録料",
+      "unit_price": 3000,
+      "update_date": "2020-01-20 02:24:11"
+    }
+  ],
+  "periodic": [
+    {
+      "id": 4,
+      "mitsumoriid": 4,
+      "num": 1,
+      "pid": "plan_Fi6m9FBBlsPqFG",
+      "pname": "PC版月額利用料(岡本晃一様用プラン)",
+      "amount": 1,
+      "kingaku": 15000,
+      "update_date": "2019-09-27 02:01:19"
+    },
+    {
+      "id": 7,
+      "mitsumoriid": 7,
+      "num": 1,
+      "pid": "plan_FhHnjTSefGZDSv",
+      "pname": "Lite月額利用料（管理戸数：51～100戸）",
+      "amount": 1,
+      "kingaku": 980,
+      "update_date": "2020-01-20 05:04:49"
+    },
+    {
+      "id": 9,
+      "mitsumoriid": 9,
+      "num": 1,
+      "pid": "plan_FhHl7fQHkFKbEh",
+      "pname": "Lite月額利用料（管理戸数：21～50戸）",
+      "amount": 1,
+      "kingaku": 480,
+      "update_date": "2020-01-27 10:44:39"
+    },
+    {
+      "id": 10,
+      "mitsumoriid": 10,
+      "num": 1,
+      "pid": "plan_FhHoAOb56XsSbW",
+      "pname": "Lite月額利用料（管理戸数：101～150戸）",
+      "amount": 1,
+      "kingaku": 1480,
+      "update_date": "2020-01-27 10:48:47"
+    },
+    {
+      "id": 11,
+      "mitsumoriid": 11,
+      "num": 1,
+      "pid": "plan_FhHnjTSefGZDSv",
+      "pname": "Lite月額利用料（管理戸数：51～100戸）",
+      "amount": 1,
+      "kingaku": 980,
+      "update_date": "2020-03-09 06:12:50"
+    }
+  ],
+  "entrySheetsData": [],
+  "sumasate": [],
+  "gamaDas": [
+    {
+      "entry_date": "2024/01/17 13:56:52",
+      "status": 2,
+      "mng_memo": "TEST",
+      "loginid": "cbitdemo",
+      "mail": "marketing@cbit.co.jp",
+      "option_id": 2
+    },
+    {
+      "entry_date": "2023/07/27 16:24:42",
+      "status": 1,
+      "mng_memo": "",
+      "loginid": "cbitdemo",
+      "mail": "marketing@cbit.co.jp",
+      "option_id": 2
+    }
+  ],
+  "attachment": [
+    {
+      "id": 21749,
+      "ac": "72946c488997782cd04265252b22835c",
+      "filename": "スクリーンショット (1).png",
+      "upldate": "2024/10/18　09:38:03",
+      "upldate_day": "2024/10/18",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21748,
+      "ac": "e78f600b00c0f5f016f24a31ae6072a9",
+      "filename": "スクリーンショット (1).png",
+      "upldate": "2024/10/18　09:36:29",
+      "upldate_day": "2024/10/18",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21747,
+      "ac": "d3e9be9f276640f8f1cb0cc66940bee3",
+      "filename": "BAOトップ画面修正依頼(宮澤).pdf",
+      "upldate": "2024/10/16　17:24:34",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21746,
+      "ac": "e83e66795ab4a5c3b63f395c0c2c80d1",
+      "filename": "BAOトップ画面修正依頼(宮澤).pdf",
+      "upldate": "2024/10/16　17:11:46",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21745,
+      "ac": "6a5bb3152980467a62b9811a3db2e140",
+      "filename": "BAOトップ画面修正依頼(宮澤).pdf",
+      "upldate": "2024/10/16　17:10:54",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21744,
+      "ac": "8b77bfc054204090764598bfa82924a7",
+      "filename": "BAOトップ画面修正依頼(宮澤).pdf",
+      "upldate": "2024/10/16　12:47:34",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21743,
+      "ac": "1b09e3c88969855e799d68254e2a3b53",
+      "filename": "GEEKOM_Logo10_300x_8950b4de-0a13-409e-ae5b-1184f40fd776.png",
+      "upldate": "2024/10/16　12:12:24",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21742,
+      "ac": "c219556f5ae42711762ae9a1908c9c68",
+      "filename": "GEEKOM_NUC_A8_AMD_Ryzen_R7-8845HSR9-8945HS_-_-_GEEKOM_d796ec0c-5824-471d-9c24-873cee5e3ceb.webp",
+      "upldate": "2024/10/16　12:12:24",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21741,
+      "ac": "f9186ec29776bfbc558821695a983660",
+      "filename": "GEEKOM_NUC_A8_AMD_Ryzen_R7-8845HSR9-8945HS_-_-_GEEKOM_d796ec0c-5824-471d-9c24-873cee5e3ceb.png",
+      "upldate": "2024/10/16　12:12:24",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21740,
+      "ac": "398cd7401514d3793c21aa230cdc63b0",
+      "filename": "社員総会議事録（35期） (1).xlsm",
+      "upldate": "2024/10/16　12:12:24",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21739,
+      "ac": "3d790866965f3a3659bd3eca1d593763",
+      "filename": "PrintCredit_202410081155038903164eb6.pdf",
+      "upldate": "2024/10/16　12:12:24",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21738,
+      "ac": "be80add25a74f54e887352ddd9a8906a",
+      "filename": "TOＰ改修修正依頼_谷知.pdf",
+      "upldate": "2024/10/16　12:12:24",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21737,
+      "ac": "06fa07537cdf21c919b2f71b471b23aa",
+      "filename": "社員総会議事録（35期）.xlsm",
+      "upldate": "2024/10/16　12:12:24",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 21736,
+      "ac": "6b74143a922cf070e2fc48c5bad8d5b5",
+      "filename": "BAOトップ画面修正依頼(宮澤).pdf",
+      "upldate": "2024/10/16　12:12:22",
+      "upldate_day": "2024/10/16",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 1,
+      "name": "出茂 太郎",
+      "yymm": null
+    },
+    {
+      "id": 3638,
+      "ac": "5c93250966cefc2c7a179262d36b504e",
+      "filename": "2019年5月収支報告書(サンプル).pdf",
+      "upldate": "2021/08/21　14:43:48",
+      "upldate_day": "2021/08/21",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 5,
+      "name": "出茂 太郎",
+      "yymm": "2021/08"
+    },
+    {
+      "id": 3635,
+      "ac": "4d157a2b475102b8692d02fce523cb82",
+      "filename": "2019年5月収支報告書(サンプル).pdf",
+      "upldate": "2021/08/20　15:48:39",
+      "upldate_day": "2021/08/20",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 5,
+      "name": "出茂 太郎",
+      "yymm": "2021/08"
+    },
+    {
+      "id": 626,
+      "ac": "3546efaab888c07a4d0e36d0aa2241f0",
+      "filename": "Screenshot_20200722-153334.png",
+      "upldate": "2020/07/22　20:05:44",
+      "upldate_day": "2020/07/22",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 5,
+      "name": "出茂 太郎",
+      "yymm": "2020/07"
+    },
+    {
+      "id": 621,
+      "ac": "2285754f46103889da2c65b6eea8dd9c",
+      "filename": "Screenshot_19_01.png",
+      "upldate": "2020/07/22　08:44:25",
+      "upldate_day": "2020/07/22",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 5,
+      "name": "出茂 太郎",
+      "yymm": "2020/07"
+    },
+    {
+      "id": 176,
+      "ac": "ab12093b5f9a689d488f415ea4e69960",
+      "filename": "1574991037244123005289514166575.jpg",
+      "upldate": "2019/11/29　10:31:03",
+      "upldate_day": "2019/11/29",
+      "bldgno": 0,
+      "bldgname": null,
+      "status": 5,
+      "name": "出茂 太郎",
+      "yymm": "2019/11"
+    }
+  ]
+}

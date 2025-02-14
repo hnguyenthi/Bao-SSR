@@ -1,5 +1,4 @@
 <script setup>
-import ItemCategory from '@/Components/premium/ItemCategory.vue';
 const props = defineProps({
     categories: {
         type: Object,

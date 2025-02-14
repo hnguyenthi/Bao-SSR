@@ -4,7 +4,7 @@ import { reactive, ref } from 'vue';
 const hamburgerList = reactive([
     {
         title: 'マイページ',
-        link: '/mypage',
+        link: '/mypage?form=personal-info',
         isSlot: false,
     },
     {
@@ -19,7 +19,7 @@ const hamburgerList = reactive([
     },
     {
         title: 'update',
-        link: '/mypage',
+        link: '/mypage?form=update-info',
         isSlot: true,
     },
     {
@@ -30,7 +30,7 @@ const hamburgerList = reactive([
 const hamburgerListMini = reactive([
     {
         title: 'マイページ',
-        link: '/mypage',
+        link: '/mypage?form=personal-info',
         isSlot: false,
     },
     {

@@ -6,7 +6,8 @@ import keyIcon from '~/assets/images/common/key-icon.svg';
 import fileIcon from '~/assets/images/common/file-icon.svg';
 import { useVuelidate } from '@vuelidate/core';
 import { required, numeric, helpers, minLength } from '@vuelidate/validators';
-
+const route = useRoute();
+console.log(route);
 const breadcrumbs = ref([
     {
         title: 'ホーム',
@@ -56,7 +57,6 @@ const rules = {
     },
 };
 const makeCondition = () => {
-    console.log('query', route().params);
     //     switch(expression) {
     //   case x:
     //     // code block
@@ -90,18 +90,14 @@ const handleSubmit = () => {
                     >
                         <div
                             :class="{
-                                'border-primary': $page.url.includes(
-                                    item.query,
-                                ),
+                                'border-primary':route.query.form === item.query,
                             }"
                             class="border-b border-solid border-grey px-[22px] py-[20px]"
                         >
                             <div
                                 class="flex content-center items-center justify-between"
                                 :class="{
-                                    'text-primary': $page.url.includes(
-                                        item.query,
-                                    ),
+                                    'text-primary': route.query.form === item.query,
                                 }"
                             >
                                 <div class="flex gap-[15px]">
@@ -122,7 +118,7 @@ const handleSubmit = () => {
                     </NuxtLink>
                 </div>
                 <div
-                    v-if="$page.url.includes('personal-info')"
+                    v-if="route.query.form === 'personal-info'"
                     class="col-span-11 rounded-sm bg-white px-[50px] pb-[60px] pt-[33px] lg:col-span-8"
                 >
                     <div class="grid grid-cols-2 gap-6">
@@ -217,7 +213,7 @@ const handleSubmit = () => {
                     </div>
                 </div>
                 <div
-                    v-if="$page.url.includes('email-info')"
+                    v-if="route.query.form === 'email-info'"
                     class="col-span-11 rounded-sm bg-white px-[50px] pb-[60px] pt-[33px] lg:col-span-8"
                 >
                     <div class="grid grid-cols-1 gap-6">
@@ -265,7 +261,7 @@ const handleSubmit = () => {
                     </div>
                 </div>
                 <div
-                    v-if="$page.url.includes('security-info')"
+                    v-if="route.query.form === 'security-info'"
                     class="col-span-11 rounded-sm bg-white px-[50px] pb-[60px] pt-[33px] lg:col-span-8"
                 >
                     <div class="grid grid-cols-1 gap-6">
@@ -350,7 +346,7 @@ const handleSubmit = () => {
                     </div>
                 </div>
                 <div
-                    v-if="$page.url.includes('update-info')"
+                    v-if="route.query.form === 'update-info'"
                     class="col-span-11 rounded-sm bg-white px-[50px] pb-[60px] pt-[33px] lg:col-span-8"
                 >
                     <div class="grid grid-cols-2 gap-6">

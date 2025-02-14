@@ -1,3 +1,5 @@
+import { layouts } from "chart.js";
+
 export const CATEGORY_INCOME_EXPENSE = [
     {
         id: 1,
@@ -463,7 +465,68 @@ export const STATUS_USER_TITLE = {
     9: '利用停止',
     8: 'エラー',
 };
-
+export const USER_STATUS = [
+    {
+        // NEW
+        value: 0,
+        label: '新規申込',
+    },
+    {
+        // USE
+        value: 1,
+        label: '利用中',
+    },
+    {
+        // CANCEL
+        value: 2,
+        label: '解約済',
+    },
+    {
+        // STOP
+        value: 9,
+        label: '利用停止',
+    },
+    {
+        // ERROR
+        value: 8,
+        label: 'エラー',
+    },
+    {
+        // WAITING_REPORT
+        value: 11, 
+        label: '収支待ち',
+    },
+    {
+        // CALCULATING
+        value: 12,
+        label: '金額算出中',
+    },
+    {
+        // STRIPE_PROCESSING
+        value: 13,
+        label: 'Stripe処理中',
+    },
+    {
+        // WAITING_PAYMENT
+        value: 14,
+        label: '決済待ち',
+    },
+    {
+        // DATA_REFRESHING
+        value: 15,
+        label: 'データ反映中',
+    },
+    {
+        // CANCEL_APPLICATION
+        value: 21,
+        label: '解約申込中',
+    },
+    {
+        // CANCEL_PROCESSING
+        value: 22,
+        label: '解約処理中',
+    }
+];
 export const STATUS_REFLECTION = {
     NOT_REFLECTED: 1,
     REFLECTING: 2,
@@ -478,7 +541,33 @@ export const STATUS_REFLECTION_TITLE = {
     4: '不備有',
     5: '対象外',
 };
-
+export const REFLECTION_STATUS = [
+    {
+        // NOT_REFLECTED
+        value: 1,
+        label: '未反映',
+    },
+    {
+        // REFLECTING
+        value: 2,
+        label: '反映中',
+    },
+    {
+        // REFLECTED
+        value: 3,
+        label: '反映済',
+    },
+    {
+        // ERROR
+        value: 4,
+        label: '不備有',
+    },
+    {
+        // NOT_SUBJECT
+        value: 5,
+        label: '対象外',
+    }
+]
 export const STATUS_APPROVE = {
     UN_APPROVED: 1,
     DOC_AWAIT_APPROVE: 2,
@@ -493,6 +582,33 @@ export const STATUS_APPROVE_TITLE = {
     4: 'ES承認待',
     5: 'ES承認済',
 };
+export const APPROVE_STATUS = [
+    {
+        // UN_APPROVED
+        value: 1,
+        label: '未承認',
+    },
+    {
+        // DOC_AWAIT_APPROVE
+        value: 2,
+        label: 'DOC承認待',
+    },
+    {
+        // DOC_APPROVED
+        value: 3,
+        label: 'DOC承認済',
+    },
+    {
+        // ES_AWAIT_APPROVE
+        value: 4,
+        label: 'ES承認待',
+    },
+    {
+        // ES_APPROVED
+        value: 5,
+        label: 'ES承認済',
+    }
+]
 export const STATUS_PURCHASE = {
     1: [
         {

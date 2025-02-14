@@ -1,7 +1,6 @@
 import type { NuxtPage } from 'nuxt/schema';
-
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   ssr: true,
 
   runtimeConfig: {
@@ -15,7 +14,7 @@ export default defineNuxtConfig({
     'pages:extend' (pages) {
       function setMiddleware(pages: NuxtPage[]) {
         for (const page of pages) {
-          if (page.path !== '/user/login' && page.path !== '/admin/login') {
+          if (page.path !== '/' && page.path !== '/mng/login') {
             page.meta ||= {}
             page.meta.middleware = ['auth']
           }
@@ -27,8 +26,8 @@ export default defineNuxtConfig({
       setMiddleware(pages)
     }
   },
-  css: ['~/assets/scss/main.scss'],
-  modules: ['@nuxtjs/tailwindcss'],
+  css: ['~/assets/scss/main.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
+  modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt'],
   tailwindcss: {
     cssPath: ['~/assets/scss/tailwind.scss', { injectPosition: "first" }],
     config: [
@@ -43,5 +42,5 @@ export default defineNuxtConfig({
   ],
   plugins: [
     '~/plugins/global',
-  ]
+  ],
 })

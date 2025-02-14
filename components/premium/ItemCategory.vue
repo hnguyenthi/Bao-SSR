@@ -1,6 +1,6 @@
 <script setup>
 import { formatNumber } from '~/utils';
-
+const router = useRouter();
 const props = defineProps({
     category: {
         type: Object,
@@ -14,9 +14,9 @@ const props = defineProps({
 const handleRegister = () => {
     localStorage.clear();
     if (props.category.option_name === 'SIソーラー') {
-        router.visit(`/category/${props.category.option_name}`);
+        router.push(`/category/${props.category.option_name}`);
     } else {
-        router.visit(`/${props.category.option_name}Entry`);
+        router.push(`/${props.category.option_name}Entry`);
     }
 };
 </script>
